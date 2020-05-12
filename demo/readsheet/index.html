@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="tw">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo</title>
+</head>
+
+<style type="text/css">
+	body {
+		font-size: 15px;
+	}
+	
+	table {
+		position: relative;
+		border-collapse: collapse;
+		border-left: 1px solid #ddd;
+		border-top: 1px solid #ddd;
+	}
+
+	thead {
+		color: #666;
+		background: #fafafa
+	}
+
+	td {
+		padding: 7px 10px 5px;
+		border-right: 1px solid #ddd;
+		border-bottom: 1px solid #ddd; 
+		margin: 0;
+	}
+	td:nth-of-type(1) {	min-width: 80px; }
+	td:nth-of-type(2) { min-width: 110px; }
+	td:nth-of-type(5) { min-width: 80px; }
+	
+</style>
+
+<body>
+
+<section>
+	<div>
+		<select id="select_dist" class="select-table-filter" data-table="order-table">
+		</select>
+		<select id="select_vil" class="select-table-filter" data-table="order-table">
+		</select>
+		<span>搜尋: </span>
+		<input type="search" class="light-table-filter" data-table="order-table" placeholder="輸入區、里名稱查詢">
+	</div>
+	
+	<table class="order-table">
+		<thead id="thead">
+		</thead>
+	    <tbody id="tbody">
+	    </tbody>
+	</table>
+</section>
+
+<script type="text/javascript">
+
+	// 建立 LightTableFilter
+	var LightTableFilter = (function(Arr) {
+
+	    var _input;
+
+	    // 資料輸入事件處理函數
+	    function _onInputEvent(e) {
+	      _input = e.target;
+	      console.log(_input);
+	      var tables = document.getElementsByClassName(_input.getAttribute('data-table'));
+	      Arr.forEach.call(tables, function(table) {
+	        Arr.forEach.call(table.tBodies, function(tbody) {
+	          Arr.forEach.call(tbody.rows, _filter);
+	        });
+	      });
+	    }
+
+	    // 資料篩選函數，顯示包含關鍵字的列，其餘隱藏
+	    function _filter(row) {
+	      var text = row.textContent.toLowerCase(), val = _input.value.toLowerCase();
+	      row.style.display = text.indexOf(val) === -1 ? 'none' : 'table-row';
+	    }
+
+	    return {
+	      // 初始化函數
+	      init: function() {
+	        var inputs = document.getElementsByClassName('light-table-filter');
+	        Arr.forEach.call(inputs, function(input) {
+	          input.oninput = _onInputEvent;
+	        });
+
+	        var selects = document.getElementsByClassName('select-table-filter');
+	        Arr.forEach.call(selects, function(select) {
+	        	select.onchange = _onInputEvent;
+	        })
+	      }
+	    };
+    })(Array.prototype);
+
+
+	var request = new XMLHttpRequest();
+	request.open('GET', `https://spreadsheets.google.com/feeds/list/1oi63NIXI_xvg9zdX_F2UEsEjaPjPG5SfJGRq5RCJ-a0/default/public/values?alt=json`, true);
+	
+	request.responseType = 'json';
+	request.send();
+
+	request.onload = function() {
+	  if (request.status >= 200 && request.status < 400) {
+	  
+	    let respon = request.response.feed.entry;
+
+	    buildtable(respon);
+	  }
+	};
+
+	function buildtable(respon) {
+
+		const dist_arr = [];
+		var d_vils = [];
+		var vil_arr = {
+			length: 0,
+			addElem: function addElem(elem) {
+		        // obj.length is automatically incremented 
+		        // every time an element is added.
+		        [].push.call(this, elem);
+		    }
+		};
+		
+		var tbody = document.getElementById("tbody");
+		var thead = document.getElementById("thead");
+
+		for (var i = 0; i < respon.length; i++) {
+
+			var dist = respon[i]['gsx$dist']['$t'];
+			var id = respon[i]['gsx$id']['$t'];
+		    var name = respon[i]['gsx$name']['$t'];
+		    var addr = respon[i]['gsx$addr']['$t'];
+		    var vil = respon[i]['gsx$vil']['$t'];
+		    var nb = respon[i]['gsx$nb']['$t'];
+		    var mark = respon[i]['gsx$mark']['$t'];
+
+		    const array = [dist,id, name, addr, vil, nb, mark];
+
+		    var tr = document.createElement("tr");
+
+		    for (var j = 0; j < array.length; j++) {
+		    	var td = document.createElement("td");
+				var node = document.createTextNode(array[j]);
+				td.appendChild(node);
+				tr.appendChild(td);
+		    }
+
+
+			if (i > 0) {
+				tbody.appendChild(tr);
+				d_vils.push(vil);
+				
+				if (dist !== dist_arr[dist_arr.length - 1]) {
+					dist_arr.push(dist);
+					console.log(d_vils);
+					vil_arr.addElem(d_vils);
+					var d_vils = [];
+				}
+				
+			}else if (i == 0) {
+				thead.appendChild(tr);
+				dist_arr.push(dist);
+			}
+			
+		}
+
+		console.log(vil_arr);
+
+		var select_dist = document.getElementById("select_dist");
+
+		for (var k = 0; k < dist_arr.length; k++){
+			var opt = document.createElement("option");
+			var opt_text = document.createTextNode(dist_arr[k]);
+			opt.appendChild(opt_text);
+			opt.value = dist_arr[k];
+			if (k == 0) {
+				opt.disabled = true;
+			}
+
+			select_dist.appendChild(opt);
+
+		}
+
+		LightTableFilter.init();
+
+	}
+
+</script>
+</body>
+    
+</html>
