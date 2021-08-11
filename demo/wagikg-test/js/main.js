@@ -20,25 +20,25 @@ let List = [
     {
         "no": "P00001",
         "name": "Total機油",
-        "img": "http://125.228.2.127/interview/img/total.jpg",
+        "img": "img/total.jpg",
         "price": "200"
     },
     {
         "no": "P00002",
         "name": "Total2機油",
-        "img": "http://125.228.2.127/interview/img/total2.jpg",
+        "img": "img/total2.jpg",
         "price": "300"
     },
     {
         "no": "P00003",
         "name": "Total3機油",
-        "img": "http://125.228.2.127/interview/img/total3.jpg",
+        "img": "img/total3.jpg",
         "price": "450"
     },
     {
         "no": "P00004",
         "name": "Total4機油",
-        "img": "http://125.228.2.127/interview/img/total4.jpg",
+        "img": "img/total4.jpg",
         "price": "650"
     }
 ]
@@ -63,7 +63,7 @@ function itempage() {
       {
           "no": "P00002",
           "name": "Total2機油",
-          "img": "http://125.228.2.127/interview/img/total2.jpg",
+          "img": "img/total2.jpg",
           "price": "300"
       }
     ]
