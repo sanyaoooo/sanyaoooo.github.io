@@ -4,12 +4,13 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>666 哪裡投票</title>
+    <title>666 哪裡罷</title>
 </head>
 
 <style type="text/css">
 	body {
 		font-size: 15px;
+		background-color: #fafafa;
 	}
 	
 	table {
@@ -17,6 +18,12 @@
 		border-collapse: collapse;
 		border-left: 1px solid #ddd;
 		border-top: 1px solid #ddd;
+		margin: 0 auto;
+    	width: 100%;
+	}
+
+	tr {
+		background-color: #fff;
 	}
 
 	thead {
@@ -29,24 +36,179 @@
 		border-right: 1px solid #ddd;
 		border-bottom: 1px solid #ddd; 
 		margin: 0;
+		word-wrap: break-word;
 	}
 	td:nth-of-type(1) {	min-width: 80px; }
-	td:nth-of-type(2) { min-width: 110px; }
-	td:nth-of-type(5) { min-width: 80px; }
+	td:nth-of-type(4) { min-width: 110px; }
+	td:nth-of-type(2) { min-width: 80px; }
+	td:nth-of-type(3) { max-width: 80px; }
+
+	h1 {
+		margin: 1em 0;
+		text-align: center;
+		font-family: Arial, '微軟正黑體';
+	}
+
+	.filter-block {
+		margin-bottom: 1em;
+		font-size: 18px;
+		font-family: Arial, '微軟正黑體';
+		text-align: center;
+		line-height: 3;
+	}
+
+	.filter-block select, .filter-block input {
+		font-size: 18px;
+		font-family: Arial, '微軟正黑體';
+		line-height: 1;
+		height: 40px;
+		padding: 0px 8px;
+		box-sizing: border-box;
+		border: 1px solid #ccc;
+		vertical-align: middle;
+	}
+
+	.filter-block > h5 ~ h5 {
+		margin-top: 1em;
+		display: block;
+	}
+	.show-sm {
+		display: none;
+	}
+	.hide {
+		display: none;
+	}
+
+	footer {
+		font-family: Arial, '微軟正黑體';
+		font-size: 12px;
+		text-align: center;
+		padding: 20px;
+		border-top: 1px solid #eee;
+		margin-top: 20px;
+	}
+
+	/* Preloader */
+	#preloader {
+		position: fixed;
+		top:80px;
+		left:0;
+		right:0;
+		bottom:0;
+		background-color: #fafafa; /* change if the mask should have another color then white */
+		z-index:100; /* makes sure it stays on top */
+		transition: opacity 0.6s ease;
+		pointer-events: none;
+	}
+	#status {
+		border: 4px solid #aaa; /* Light grey */
+	    border-top: 4px solid #fafafa;
+	    border-radius: 50%;
+	    width: 30px;
+	    height: 30px;
+	    animation: spin 1.5s linear infinite;
+	}
+	.ab-center {
+		position: absolute;
+		top: 0;
+		right: 0;
+		bottom: 80px;
+		left: 0;
+		margin: auto;
+	}
+	.fadeout {
+		opacity: 0;
+	}
+
+	@keyframes spin {
+	    0% { transform: rotate(0deg); }
+	    100% { transform: rotate(360deg); }
+	}
+
+	@media screen and (max-width: 748px) {
+		#preloader {
+			top:100px;
+		}
+		.show-sm {
+			display: initial;
+		}
+		table {
+			border: 0;
+		}
+		thead {
+			display: none;
+		}
+		tr {
+			display: block;
+			border: 1px solid #ccc;
+			padding: 10px;
+			margin: 10px 0;
+		}
+		td {
+			display: block;
+			border: 0;
+			padding: 0;
+			line-height: 1.8;
+			font-family: Arial, '微軟正黑體';
+		}
+		td:nth-of-type(1) {
+			display: inline-block;
+			min-width: auto;
+			margin-right: 10px;
+		}
+		td:nth-of-type(2) {
+			display: inline-block;
+			min-width: auto;
+			font-size: 22px;
+			line-height: 1.3;
+			margin-right: 10px;
+		}
+		td:nth-of-type(3) {
+			display: inline-block;
+			max-width: none;
+			vertical-align: sub;
+		}
+		td:nth-of-type(4) {
+			font-size: 12px;
+			color: #aaa;
+			border-top: 1px solid #eee;
+			padding: 5px 0;
+			margin-top: 5px;
+		}
+		td:nth-of-type(5) {
+			font-size: 18px;
+			line-height: 1.3;
+		}
+		td:nth-of-type(6) {
+			color: #666;
+		}
+
+		td:nth-of-type(7) {
+			font-size: 12px;
+			color: #aaa;
+		}
+	}
 	
 </style>
 
 <body>
+<!-- Preloader-->
+<div id="preloader">
+   <div id="status" class="ab-center">&nbsp;</div>
+</div>
 
 <section>
-	<h1>高雄市第3屆市長罷免案投開票所設置地點一覽表</h1>
-	<div>
+	<h1>高雄市第 3 屆市長罷免案<br class="show-sm">投開票所設置地點一覽表</h1>
+	<div class="filter-block">
+		<span>篩選</span>
 		<select id="select_dist" class="select-table-filter" data-table="order-table">
 		</select>
-		<select id="select_vil" class="select-table-filter" data-table="order-table">
+		<select id="select_vil" class="select-table-filter2" data-table="order-table">
+			<option selected disabled>里</option>
 		</select>
-		<span>搜尋: </span>
-		<input type="search" class="light-table-filter" data-table="order-table" placeholder="輸入區、里名稱查詢">
+		<br class="show-sm">
+		<span>或搜尋</span>
+		<input type="search" class="light-table-filter" data-table="order-table" placeholder="戶籍地區、里">
 	</div>
 	
 	<table class="order-table">
@@ -57,17 +219,30 @@
 	</table>
 </section>
 
+<footer>
+	<div>
+		資料來源: <a target="_blank" href="https://drive.google.com/file/d/1KhM6LyOTgbNihSfYm2YiAOJ8wh_NEnA8/view">高雄市第3屆市長罷免案投開票所設置地點一覽表</a>
+	</div>
+</footer>
+
 <script type="text/javascript">
 
 	// 建立 LightTableFilter
 	var LightTableFilter = (function(Arr) {
 
 	    var _input;
+	    var sel1 = "";
+	    var onsel2 = false;
 
 	    // 資料輸入事件處理函數
 	    function _onInputEvent(e) {
 	      _input = e.target;
-	      console.log(_input);
+	      onsel2 = false;
+	      if (_input.id == "select_dist") {
+	      	sel1 = _input.value;
+	      }else if (_input.id == "select_vil") {
+	      	onsel2 = true;
+	      }
 	      var tables = document.getElementsByClassName(_input.getAttribute('data-table'));
 	      Arr.forEach.call(tables, function(table) {
 	        Arr.forEach.call(table.tBodies, function(tbody) {
@@ -78,8 +253,13 @@
 
 	    // 資料篩選函數，顯示包含關鍵字的列，其餘隱藏
 	    function _filter(row) {
-	      var text = row.textContent.toLowerCase(), val = _input.value.toLowerCase();
-	      row.style.display = text.indexOf(val) === -1 ? 'none' : 'table-row';
+	      var text = row.textContent.toLowerCase();
+	      if(onsel2){
+	      	var val = (sel1+ _input.value.toLowerCase());
+	      }else {
+	      	var val = _input.value.toLowerCase();
+	      }
+	      row.classList = text.indexOf(val) === -1 ? 'hide' : 'show';
 	    }
 
 	    return {
@@ -92,6 +272,11 @@
 
 	        var selects = document.getElementsByClassName('select-table-filter');
 	        Arr.forEach.call(selects, function(select) {
+	        	select.onchange = _onInputEvent;
+	        })
+
+	        var selects2 = document.getElementsByClassName('select-table-filter2');
+	        Arr.forEach.call(selects2, function(select) {
 	        	select.onchange = _onInputEvent;
 	        })
 	      }
@@ -140,7 +325,7 @@
 		    var nb = respon[i]['gsx$nb']['$t'];
 		    var mark = respon[i]['gsx$mark']['$t'];
 
-		    const array = [dist,id, name, addr, vil, nb, mark];
+		    const array = [dist, vil, nb, id, name, addr, mark];
 
 		    var tr = document.createElement("tr");
 
@@ -154,14 +339,24 @@
 
 			if (i > 0) {
 				tbody.appendChild(tr);
-				d_vils.push(vil);
 				
 				if (dist !== dist_arr[dist_arr.length - 1]) {
 					dist_arr.push(dist);
-					console.log(d_vils);
+					if (d_vils.length > 0) {
+						var d_vils = Array.from( new Set(d_vils) );
+						vil_arr.addElem(d_vils);
+						var d_vils = [];
+					}
+				}
+
+				d_vils.push(vil);
+
+				if (i == respon.length - 1) {
+					var d_vils = Array.from( new Set(d_vils) );
 					vil_arr.addElem(d_vils);
 					var d_vils = [];
 				}
+
 				
 			}else if (i == 0) {
 				thead.appendChild(tr);
@@ -170,7 +365,7 @@
 			
 		}
 
-		console.log(vil_arr);
+		// console.log(vil_arr);
 
 		var select_dist = document.getElementById("select_dist");
 
@@ -181,13 +376,35 @@
 			opt.value = dist_arr[k];
 			if (k == 0) {
 				opt.disabled = true;
+				opt.selected = true;
 			}
 
 			select_dist.appendChild(opt);
 
 		}
 
+		var select_vil = document.getElementById("select_vil");
+
+		select_dist.addEventListener("change", function(){
+			select_vil.innerHTML = "<option selected disabled>里</option>";
+			var Vnum = dist_arr.indexOf(this.value) - 1;
+			for (var k = 0; k < vil_arr[Vnum].length; k++){
+				var opt = document.createElement("option");
+				var opt_text = document.createTextNode(vil_arr[Vnum][k]);
+				opt.appendChild(opt_text);
+				opt.value = vil_arr[Vnum][k];
+				// if (k == 0) {
+				// 	opt.disabled = true;
+				// }
+
+				select_vil.appendChild(opt);
+
+			}
+		});
+
 		LightTableFilter.init();
+		var preloader = document.getElementById("preloader");
+		preloader.classList.add("fadeout");
 
 	}
 
