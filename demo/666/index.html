@@ -285,7 +285,7 @@
 
 
 	var request = new XMLHttpRequest();
-	request.open('GET', `https://sheets.googleapis.com/v4/spreadsheets/1oi63NIXI_xvg9zdX_F2UEsEjaPjPG5SfJGRq5RCJ-a0/values?alt=json&key=AIzaSyC6SecVnWd6pvGl6UJHZCIX4ZtSWBw-ubU`, true);
+	request.open('GET', `https://sheets.googleapis.com/v4/spreadsheets/1oi63NIXI_xvg9zdX_F2UEsEjaPjPG5SfJGRq5RCJ-a0/values/666?key=AIzaSyC6SecVnWd6pvGl6UJHZCIX4ZtSWBw-ubU`, true);
 	
 	request.responseType = 'json';
 	request.send();
@@ -293,7 +293,8 @@
 	request.onload = function() {
 	  if (request.status >= 200 && request.status < 400) {
 	  
-	    let respon = request.response.feed.entry;
+	    let respon = request.response.values;
+	    console.log(respon)
 
 	    buildtable(respon);
 	  }
@@ -315,15 +316,15 @@
 		var tbody = document.getElementById("tbody");
 		var thead = document.getElementById("thead");
 
-		for (var i = 0; i < respon.length; i++) {
+		for (var i = 1; i < respon.length; i++) {
 
-			var dist = respon[i]['gsx$dist']['$t'];
-			var id = respon[i]['gsx$id']['$t'];
-		    var name = respon[i]['gsx$name']['$t'];
-		    var addr = respon[i]['gsx$addr']['$t'];
-		    var vil = respon[i]['gsx$vil']['$t'];
-		    var nb = respon[i]['gsx$nb']['$t'];
-		    var mark = respon[i]['gsx$mark']['$t'];
+			var dist = respon[i][0];
+			var id = respon[i][3];
+		    var name = respon[i][4];
+		    var addr = respon[i][5];
+		    var vil = respon[i][1];
+		    var nb = respon[i][2];
+		    var mark = respon[i][6] || '';
 
 		    const array = [dist, vil, nb, id, name, addr, mark];
 
@@ -337,12 +338,12 @@
 		    }
 
 
-			if (i > 0) {
+			if (i > 1) {
 				tbody.appendChild(tr);
 				
 				if (dist !== dist_arr[dist_arr.length - 1]) {
 					dist_arr.push(dist);
-					if (d_vils.length > 0) {
+					if (d_vils.length > 1) {
 						var d_vils = Array.from( new Set(d_vils) );
 						vil_arr.addElem(d_vils);
 						var d_vils = [];
@@ -358,7 +359,7 @@
 				}
 
 				
-			}else if (i == 0) {
+			}else if (i == 1) {
 				thead.appendChild(tr);
 				dist_arr.push(dist);
 			}
