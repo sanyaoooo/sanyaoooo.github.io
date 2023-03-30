@@ -1,0 +1,19 @@
+@media screen and (min-width: 540px) {
+    :root {
+        --fs-xxxl: 32px;
+        --fs-xxl: 30px;
+        --fs-xl: 24px;
+        --fs-lg: 20px;
+        --fs-md: 18px;
+        --fs-sm: 16px;
+        --fs-xs: 14px;
+        --fs-xxs: 14px;
+    }
+    .fs-xxxs {
+        font-size: 12px;
+        transform: scale(1);
+    }
+    .grid-3-md {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
