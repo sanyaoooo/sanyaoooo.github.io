@@ -30,37 +30,40 @@ function userJoin(userid) {
 const ready = function(){
 
     let liffIsLoggeIn = false
+    let id = 'none'
+
+    // liff on line
+    if(liff.isInClient()){
+        liff.init({
+            liffId: '1655195694-8JJ47j9y',
+        }).then(async() => {
+            // Start to use liff's api
+            addConsole(liff.isLoggedIn())
+            if(liff.isLoggedIn()){
+
+                liffIsLoggeIn = true;
+
+                liff
+                .getProfile()
+                .then((profile) => {
+                    id = profile.userId;
+                })
+                .catch((err) => {
+                    console.log("error", err);
+                });
+            }
+            
+                addConsole(id)
+            
+        }).catch((err) => {
+            // Error happens during initialization
+            console.log(err.code, err.message);
+        });
+    }
     document.querySelector('#count_me_a_cup').addEventListener('click', (e) => {
         
-        // liff on line
         if(liff.isInClient()){
-            liff.init({
-                liffId: '1655195694-8JJ47j9y',
-            }).then(async() => {
-                // Start to use liff's api
-                let id = 'none'
-                addConsole(liff.isLoggedIn())
-                if(liff.isLoggedIn()){
-    
-                    liffIsLoggeIn = true;
-    
-                    liff
-                    .getProfile()
-                    .then((profile) => {
-                        id = profile.userId;
-                    })
-                    .catch((err) => {
-                        console.log("error", err);
-                    });
-                }
-                
-                    addConsole(id)
-                    userJoin(id)
-                
-            }).catch((err) => {
-                // Error happens during initialization
-                console.log(err.code, err.message);
-            });
+            userJoin(id)
         }
         // on other browser
         else {
