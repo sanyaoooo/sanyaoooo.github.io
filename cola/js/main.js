@@ -66,7 +66,7 @@ const ready = function(){
         else {
             const channelId = "1655195694";
             const channelSecret = "abbddcf4bfe2a0c3992df47c5d5c139e";
-            const redirectUri = "http://sanyao.wd3.work/cola/";
+            const redirectUri = "https://sanyaoooo.github.io/cola";
             const loginUrl = `https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id=${channelId}&redirect_uri=${redirectUri}&state=123456789&scope=openid%20profile&nonce=goodToGo&prompt=consent&max_age=3600&ui_locales=zh-TW&bot_prompt=normal`
             window.open(loginUrl, "_self")
         }
