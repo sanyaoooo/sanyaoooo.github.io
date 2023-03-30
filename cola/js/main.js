@@ -58,16 +58,24 @@ const ready = function(){
         const code = urlParams.get('code')
         console.log(code);
         const data = {
-            grant_type: "authorization_code",
-            code: code,
-            redirect_uri: redirectUri,
-            client_id: channelId,
-            client_secret: channelSecret
+            "grant_type": "authorization_code",
+            "code": code,
+            "redirect_uri": redirectUri,
+            "client_id": channelId,
+            "client_secret": channelSecret
         }
+        var formBody = [];
+        for (var property in data) {
+        var encodedKey = encodeURIComponent(property);
+        var encodedValue = encodeURIComponent(details[property]);
+        formBody.push(encodedKey + "=" + encodedValue);
+        }
+        formBody = formBody.join("&");
+
         fetch("https://api.line.me/oauth2/v2.1/token", {
-            body: JSON.stringify(data), // must match 'Content-Type' header
+            body: formBody, // must match 'Content-Type' header
             headers: {
-              'content-type': 'application/x-www-form-urlencoded'
+              'content-type': 'application/x-www-form-urlencoded;charset=UTF-8'
             },
             credentials: 'include',
             mode: 'no-cors',
