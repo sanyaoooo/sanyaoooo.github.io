@@ -39,7 +39,7 @@ const ready = function(){
         }
         // on other browser
         else {
-            const loginUrl = `https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id=${channelId}&redirect_uri=${redirectUri}&state=123456789&scope=openid%20profile&nonce=goodToGo&prompt=consent&max_age=3600&ui_locales=zh-TW&bot_prompt=normal`
+            const loginUrl = `https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id=${channelId}&redirect_uri=${redirectUri}&state=123456789&scope=openid%20profile&nonce=goodToGo&prompt=consent&max_age=3600&ui_locales=zh-TW&bot_prompt=aggressive`
             // window.open(loginUrl, "_self")
             fetch(loginUrl)
             .then(function(response) {
@@ -69,6 +69,7 @@ const ready = function(){
             headers: {
               'content-type': 'application/x-www-form-urlencoded'
             },
+            credentials: 'include',
             mode: 'no-cors',
             method: 'POST', // *GET, POST, PUT, DELETE, etc.
           })
