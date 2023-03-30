@@ -1,6 +1,6 @@
 
 function addConsole(content){
-    // document.querySelector('#console').innerHTML += content + '<br />'
+    document.querySelector('#console').innerHTML += content + '<br />'
 }
 
 function userJoin(userid) {
@@ -21,9 +21,9 @@ function userJoin(userid) {
     });
 
     // 開啟好盒器 LINE
-    liff.openWindow({
-        url: "http://line.me/ti/p/@uuo6498s",
-    });
+    // liff.openWindow({
+    //     url: "http://line.me/ti/p/@uuo6498s",
+    // });
     // liff.closeWindow();  //關閉視窗
 }
 
