@@ -31,6 +31,9 @@ const ready = function(){
 
     let liffIsLoggeIn = false
     let id = 'none'
+    const channelId = "1655195694";
+    const channelSecret = "abbddcf4bfe2a0c3992df47c5d5c139e";
+    const redirectUri = "https://sanyaoooo.github.io/cola";
 
     // liff on line
     if(liff.isInClient()){
@@ -47,13 +50,13 @@ const ready = function(){
                 .getProfile()
                 .then((profile) => {
                     id = profile.userId;
+                    addConsole(id)
                 })
                 .catch((err) => {
                     console.log("error", err);
                 });
             }
             
-                addConsole(id)
             
         }).catch((err) => {
             // Error happens during initialization
@@ -67,11 +70,16 @@ const ready = function(){
         }
         // on other browser
         else {
-            const channelId = "1655195694";
-            const channelSecret = "abbddcf4bfe2a0c3992df47c5d5c139e";
-            const redirectUri = "https://sanyaoooo.github.io/cola";
+            
             const loginUrl = `https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id=${channelId}&redirect_uri=${redirectUri}&state=123456789&scope=openid%20profile&nonce=goodToGo&prompt=consent&max_age=3600&ui_locales=zh-TW&bot_prompt=normal`
-            window.open(loginUrl, "_self")
+            // window.open(loginUrl, "_self")
+            fetch(loginUrl)
+            .then(function(response) {
+                return response.json();
+            })
+            .then(function(myJson) {
+                console.log(myJson);
+            });
         }
     })
 
@@ -81,6 +89,21 @@ const ready = function(){
     if(urlParams.has('code')){
         const code = urlParams.get('code')
         console.log(code);
+        const data = {
+            grant_type: "authorization_code",
+            code: code,
+            redirect_uri: redirectUri,
+            client_id: channelId,
+            client_secret: channelSecret
+        }
+        fetch("https://api.line.me/oauth2/v2.1/token", {
+            body: JSON.stringify(data), // must match 'Content-Type' header
+            headers: {
+              'content-type': 'application/x-www-form-urlencoded'
+            },
+            method: 'POST', // *GET, POST, PUT, DELETE, etc.
+          })
+          .then(response => response.json()) // 輸出成 json
     }
     
 
