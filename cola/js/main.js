@@ -89,7 +89,7 @@ const ready = function(){
     const shareBtns = document.querySelectorAll('.share-btn')
     shareBtns.forEach((btn) => {
         btn.addEventListener('click', (e) => {
-            shareEvent(liffUrl)
+            shareEvent(btn, liffUrl)
         })
     })
 
@@ -143,7 +143,7 @@ function initSwiper(){
     });
 }
 
-function shareEvent(liffUrl){
+function shareEvent(btn, liffUrl){
     if(liff.isInClient()){
         liff
         .shareTargetPicker(
