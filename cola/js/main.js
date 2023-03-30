@@ -40,14 +40,18 @@ const ready = function(){
         // on other browser
         else {
             const loginUrl = `https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id=${channelId}&redirect_uri=${redirectUri}&state=123456789&scope=openid%20profile&nonce=goodToGo&prompt=consent&max_age=3600&ui_locales=zh-TW&bot_prompt=aggressive`
-            // window.open(loginUrl, "_self")
-            fetch(loginUrl)
-            .then(function(response) {
-                return response.json();
-            })
-            .then(function(myJson) {
-                console.log(myJson);
-            });
+            window.open(loginUrl, "_self")
+            // fetch(loginUrl)
+            // .then(function(response) {
+            //     return response.json();
+            // })
+            // .then(function(myJson) {
+            //     console.log(myJson);
+            // })
+            // .catch(function(error) {
+            //     console.log(error)
+            //     addConsole('error: ' + error)
+            // });
         }
     })
 
@@ -82,6 +86,9 @@ const ready = function(){
             method: 'POST', // *GET, POST, PUT, DELETE, etc.
           })
           .then(response => response.json()) // 輸出成 json
+          .then(function(myJson) {
+                console.log(myJson);
+            });
     }
     
 
