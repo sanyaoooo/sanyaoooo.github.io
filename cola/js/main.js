@@ -13,9 +13,6 @@ const ready = function(){
             // Start to use liff's api
             addConsole(liff.isLoggedIn())
             if(liff.isLoggedIn()){
-
-                liffIsLoggeIn = true;
-
                 liff
                 .getProfile()
                 .then((profile) => {
@@ -26,8 +23,6 @@ const ready = function(){
                     console.log("error", err);
                 });
             }
-            
-            
         }).catch((err) => {
             // Error happens during initialization
             console.log(err.code, err.message);
@@ -41,12 +36,13 @@ const ready = function(){
         else {
             const loginUrl = `https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id=${channelId}&redirect_uri=${redirectUri}&state=123456789&scope=openid%20profile&nonce=goodToGo&prompt=consent&max_age=3600&ui_locales=zh-TW&bot_prompt=aggressive`
             window.open(loginUrl, "_self")
-            // fetch(loginUrl)
-            // .then(function(response) {
-            //     return response.json();
+            // fetch(loginUrl, {
+            //     credentials: 'include',
+            //     mode: 'no-cors',
+            //     method: 'GET', // *GET, POST, PUT, DELETE, etc.
             // })
-            // .then(function(myJson) {
-            //     console.log(myJson);
+            // .then(function(response) {
+            //     console.log(response)
             // })
             // .catch(function(error) {
             //     console.log(error)
@@ -70,9 +66,9 @@ const ready = function(){
         }
         var formBody = [];
         for (var property in data) {
-        var encodedKey = encodeURIComponent(property);
-        var encodedValue = encodeURIComponent(data[property]);
-        formBody.push(encodedKey + "=" + encodedValue);
+            var encodedKey = encodeURIComponent(property);
+            var encodedValue = encodeURIComponent(data[property]);
+            formBody.push(encodedKey + "=" + encodedValue);
         }
         formBody = formBody.join("&");
 
@@ -84,11 +80,12 @@ const ready = function(){
             credentials: 'include',
             mode: 'no-cors',
             method: 'POST', // *GET, POST, PUT, DELETE, etc.
-          })
-          .then(response => response.json()) // 輸出成 json
-          .then(function(myJson) {
-                console.log(myJson);
-            });
+        })
+        .then(response => console.log(response)) // 輸出成 json
+        .catch(function(error) {
+            console.log(error)
+            addConsole('error: ' + error)
+        });
     }
     
 
