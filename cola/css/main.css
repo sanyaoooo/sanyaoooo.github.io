@@ -494,6 +494,7 @@ header, main, footer, section {
     border-radius: 3px;
     background-color: white;
     color: var(--color-black);
+    z-index: 10;
     transition: all 0.4s ease;
     opacity: 0;
     transform: translateY(-6px);
