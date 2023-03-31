@@ -130,7 +130,7 @@ function getIDToken(code){
         return response.json()
     })
     .then(function(json) {
-        console.log(json)
+        // console.log(json)
         getProfile(json.id_token)
     })
     .catch(function(error) {
@@ -156,7 +156,7 @@ function getProfile(token){
         return response.json()
     })
     .then(function(json) {
-        console.log(json)
+        // console.log(json)
         return json.sub
     })
     .then(function(id){
