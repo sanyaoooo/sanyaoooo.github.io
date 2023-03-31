@@ -82,7 +82,10 @@ const ready = function(){
             method: 'POST', // *GET, POST, PUT, DELETE, etc.
         })
         .then(function(response) {
-            console.log(response)
+            return response.json()
+        })
+        .then(function(json) {
+            console.log(json)
             window.open(joinUrl)
         })
         .catch(function(error) {
