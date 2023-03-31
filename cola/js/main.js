@@ -36,20 +36,20 @@ const ready = function(){
         // on other browser
         else {
             let uuid = _uuid()
-            const loginUrl = `https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id=${channelId}&redirect_uri=${redirectUri}&state=${uuid}&scope=openid%20profile&nonce=goodToGo&prompt=consent&max_age=3600&ui_locales=zh-TW&bot_prompt=aggressive`
-            // window.open(loginUrl, "_self")
-            fetch(loginUrl, {
-                credentials: 'include',
-                mode: 'no-cors',
-                method: 'GET', // *GET, POST, PUT, DELETE, etc.
-            })
-            .then(function(response) {
-                console.log(response)
-            })
-            .catch(function(error) {
-                console.log(error)
-                addConsole('error: ' + error)
-            });
+            let loginUrl = 'https://access.line.me/oauth2/v2.1/authorize?'
+            // 必填
+            loginUrl += 'response_type=code' // 希望LINE回應什麼  但是目前只有code能選
+            loginUrl += `&client_id=${channelId}` // 你的頻道ID
+            loginUrl += `&redirect_uri=${redirectUri}` // 要接收回傳訊息的網址
+            loginUrl += `&state=${uuid}` // 用來防止跨站請求的 之後回傳會傳回來給你驗證
+            loginUrl += '&scope=openid%20profile' // 跟使用者要求的權限 目前就三個能選 openid profile email
+            // 選填
+            loginUrl += '&nonce=goodToGo'
+            loginUrl += '&prompt=consent'
+            loginUrl += '&max_age=3600'
+            loginUrl += '&ui_locales=zh-TW'
+            loginUrl += '&bot_prompt=normal'
+            window.open(loginUrl, "_self")
         }
     })
 
@@ -77,7 +77,7 @@ const ready = function(){
         fetch("https://api.line.me/oauth2/v2.1/token", {
             body: formBody, // must match 'Content-Type' header
             headers: {
-              'content-type': 'application/x-www-form-urlencoded;charset=UTF-8'
+              'content-type': 'application/x-www-form-urlencoded'
             },
             method: 'POST', // *GET, POST, PUT, DELETE, etc.
         })
