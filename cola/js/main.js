@@ -1,15 +1,45 @@
-const ready = function(){
-    let id = 'none'
-    const channelId = "1655195694";
-    const channelSecret = "abbddcf4bfe2a0c3992df47c5d5c139e";
-    const redirectUri = "https://sanyaoooo.github.io/cola/";
-    const liffUrl = "http://liff.line.me/1655195694-8JJ47j9y";
-    const joinUrl = "https://lin.ee/4EFDSRS"; // for event 2023 earth day
+let userId = 'none'
+const channelId = "1655195694";
+const channelSecret = "abbddcf4bfe2a0c3992df47c5d5c139e";
+const redirectUri = "https://sanyaoooo.github.io/cola/";
+const liffId = '1655195694-8JJ47j9y';
+const liffUrl = "http://liff.line.me/1655195694-8JJ47j9y";
+const joinUrl = "https://lin.ee/4EFDSRS"; // for event 2023 earth day
 
+
+// 傳資料到好盒器 & 開啟LINE BOT
+function userJoin(id) {
+    fetch("https://zyjeng.com/api/cola", {
+        method: "POST",
+        body: JSON.stringify({
+            userId: id,
+            endpoint: "0",
+        }),
+        headers: {
+            "Content-type": "application/json; charset=UTF-8"
+        }
+    })
+    .then((response) => response.json() )
+    .then((json) => addConsole('response: ' + JSON.stringify(json)))
+    .catch(function(error) {
+        addConsole('error: ' + error)
+    });
+
+    // 開啟好盒器 LINE
+    if(liff.isInClient){
+        liff.openWindow({
+            url: joinUrl,
+        });
+    }else {
+        window.open(joinUrl)
+    }
+}
+
+const ready = function(){
     // liff on line
     if(liff.isInClient()){
         liff.init({
-            liffId: '1655195694-8JJ47j9y',
+            liffId: liffId,
         }).then(async() => {
             // Start to use liff's api
             addConsole(liff.isLoggedIn())
@@ -17,8 +47,8 @@ const ready = function(){
                 liff
                 .getProfile()
                 .then((profile) => {
-                    id = profile.userId;
-                    addConsole(id)
+                    userId = profile.userId;
+                    addConsole(userId)
                 })
                 .catch((err) => {
                     console.log("error", err);
@@ -30,26 +60,14 @@ const ready = function(){
         });
     }
     document.querySelector('#count_me_a_cup').addEventListener('click', (e) => {
+        // on liff
         if(liff.isInClient()){
-            userJoin(id)
+            // 傳資料到好盒器 & 開啟LINE BOT
+            userJoin(userId)
         }
         // on other browser
         else {
-            let uuid = _uuid()
-            let loginUrl = 'https://access.line.me/oauth2/v2.1/authorize?'
-            // 必填
-            loginUrl += 'response_type=code' // 希望LINE回應什麼  但是目前只有code能選
-            loginUrl += `&client_id=${channelId}` // 你的頻道ID
-            loginUrl += `&redirect_uri=${redirectUri}` // 要接收回傳訊息的網址
-            loginUrl += `&state=${uuid}` // 用來防止跨站請求的 之後回傳會傳回來給你驗證
-            loginUrl += '&scope=openid%20profile' // 跟使用者要求的權限 目前就三個能選 openid profile email
-            // 選填
-            loginUrl += '&nonce=goodToGo'
-            loginUrl += '&prompt=consent'
-            loginUrl += '&max_age=3600'
-            loginUrl += '&ui_locales=zh-TW'
-            loginUrl += '&bot_prompt=normal'
-            window.open(loginUrl, "_self")
+            userLogin()
         }
     })
 
@@ -58,40 +76,7 @@ const ready = function(){
     const urlParams = new URLSearchParams(queryString);
     if(urlParams.has('code')){
         const code = urlParams.get('code')
-        console.log(code);
-        const data = {
-            "grant_type": "authorization_code",
-            "code": code,
-            "redirect_uri": redirectUri,
-            "client_id": channelId,
-            "client_secret": channelSecret
-        }
-        var formBody = [];
-        for (var property in data) {
-            var encodedKey = encodeURIComponent(property);
-            var encodedValue = encodeURIComponent(data[property]);
-            formBody.push(encodedKey + "=" + encodedValue);
-        }
-        formBody = formBody.join("&");
-
-        fetch("https://api.line.me/oauth2/v2.1/token", {
-            body: formBody, // must match 'Content-Type' header
-            headers: {
-              'content-type': 'application/x-www-form-urlencoded'
-            },
-            method: 'POST', // *GET, POST, PUT, DELETE, etc.
-        })
-        .then(function(response) {
-            return response.json()
-        })
-        .then(function(json) {
-            console.log(json)
-            window.open(joinUrl)
-        })
-        .catch(function(error) {
-            console.log(error)
-            addConsole('error: ' + error)
-        });
+        getIDToken(code)
     }
     
 
@@ -107,28 +92,80 @@ const ready = function(){
     
 }
 
-function userJoin(userid) {
-    fetch("https://zyjeng.com/api/cola", {
-        method: "POST",
-        body: JSON.stringify({
-            userId: userid,
-            endpoint: "0",
-        }),
+function userLogin(){
+    let uuid = _uuid()
+    let loginUrl = 'https://access.line.me/oauth2/v2.1/authorize?'
+    // 必填
+    loginUrl += 'response_type=code' // 希望LINE回應什麼  但是目前只有code能選
+    loginUrl += `&client_id=${channelId}` // 你的頻道ID
+    loginUrl += `&redirect_uri=${redirectUri}` // 要接收回傳訊息的網址
+    loginUrl += `&state=${uuid}` // 用來防止跨站請求的 之後回傳會傳回來給你驗證
+    loginUrl += '&scope=openid%20profile' // 跟使用者要求的權限 目前就三個能選 openid profile email
+    // 選填
+    loginUrl += '&nonce=goodToGo'
+    loginUrl += '&prompt=consent'
+    loginUrl += '&max_age=3600'
+    loginUrl += '&ui_locales=zh-TW'
+    loginUrl += '&bot_prompt=normal'
+    window.open(loginUrl, "_self")
+}
+
+function getIDToken(code){
+    const data = {
+        "grant_type": "authorization_code",
+        "code": code,
+        "redirect_uri": redirectUri,
+        "client_id": channelId,
+        "client_secret": channelSecret
+    }
+    let formBody = encodeJson(data)
+    fetch("https://api.line.me/oauth2/v2.1/token", {
+        body: formBody, // must match 'Content-Type' header
         headers: {
-            "Content-type": "application/json; charset=UTF-8"
-        }
+          'content-type': 'application/x-www-form-urlencoded'
+        },
+        method: 'POST', // *GET, POST, PUT, DELETE, etc.
     })
-    .then((response) => response.json() )
-    .then((json) => addConsole('response: ' + JSON.stringify(json)))
+    .then(function(response) {
+        return response.json()
+    })
+    .then(function(json) {
+        console.log(json)
+        getProfile(json.id_token)
+    })
     .catch(function(error) {
+        console.log(error)
         addConsole('error: ' + error)
     });
+}
 
-    // 開啟好盒器 LINE
-    liff.openWindow({
-        url: joinUrl,
+function getProfile(token){
+    const data = {
+        "id_token": token,
+        "client_id": channelId,
+    }
+    let formBody = encodeJson(data)
+    fetch("https://api.line.me/oauth2/v2.1/verify", {
+        body: formBody, // must match 'Content-Type' header
+        headers: {
+            'content-type': 'application/x-www-form-urlencoded'
+        },
+        method: 'POST', // *GET, POST, PUT, DELETE, etc.
+    })
+    .then(function(response) {
+        return response.json()
+    })
+    .then(function(json) {
+        console.log(json)
+        return json.sub
+    })
+    .then(function(id){
+        userJoin(id)
+    })
+    .catch(function(error) {
+        console.log(error)
+        addConsole('error: ' + error)
     });
-    // liff.closeWindow();  //關閉視窗
 }
 
 function initSwiper(){
@@ -207,6 +244,17 @@ function _uuid() {
       d = Math.floor(d / 16);
         return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
     });
+}
+
+function encodeJson(data){
+    var formBody = [];
+    for (var property in data) {
+        var encodedKey = encodeURIComponent(property);
+        var encodedValue = encodeURIComponent(data[property]);
+        formBody.push(encodedKey + "=" + encodedValue);
+    }
+    formBody = formBody.join("&");
+    return formBody
 }
 
 // document.ready
