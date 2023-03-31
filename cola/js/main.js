@@ -2,7 +2,7 @@ const ready = function(){
     let id = 'none'
     const channelId = "1655195694";
     const channelSecret = "abbddcf4bfe2a0c3992df47c5d5c139e";
-    const redirectUri = "https://2023-earthday.goodtogo.tw";
+    const redirectUri = "https://sanyaoooo.github.io/cola/";
     const liffUrl = "http://liff.line.me/1655195694-8JJ47j9y";
     const joinUrl = "https://lin.ee/4EFDSRS"; // for event 2023 earth day
 
@@ -39,8 +39,8 @@ const ready = function(){
             const loginUrl = `https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id=${channelId}&redirect_uri=${redirectUri}&state=${uuid}&scope=openid%20profile&nonce=goodToGo&prompt=consent&max_age=3600&ui_locales=zh-TW&bot_prompt=aggressive`
             // window.open(loginUrl, "_self")
             fetch(loginUrl, {
-                // credentials: 'include',
-                // mode: 'no-cors',
+                credentials: 'include',
+                mode: 'no-cors',
                 method: 'GET', // *GET, POST, PUT, DELETE, etc.
             })
             .then(function(response) {
