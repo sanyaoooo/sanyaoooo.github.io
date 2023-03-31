@@ -2,8 +2,9 @@ const ready = function(){
     let id = 'none'
     const channelId = "1655195694";
     const channelSecret = "abbddcf4bfe2a0c3992df47c5d5c139e";
-    const redirectUri = "https://sanyaoooo.github.io/cola";
+    const redirectUri = "https://2023-earthday.goodtogo.tw";
     const liffUrl = "http://liff.line.me/1655195694-8JJ47j9y";
+    const joinUrl = "https://lin.ee/4EFDSRS"; // for event 2023 earth day
 
     // liff on line
     if(liff.isInClient()){
@@ -34,20 +35,21 @@ const ready = function(){
         }
         // on other browser
         else {
-            const loginUrl = `https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id=${channelId}&redirect_uri=${redirectUri}&state=123456789&scope=openid%20profile&nonce=goodToGo&prompt=consent&max_age=3600&ui_locales=zh-TW&bot_prompt=aggressive`
-            window.open(loginUrl, "_self")
-            // fetch(loginUrl, {
-            //     credentials: 'include',
-            //     mode: 'no-cors',
-            //     method: 'GET', // *GET, POST, PUT, DELETE, etc.
-            // })
-            // .then(function(response) {
-            //     console.log(response)
-            // })
-            // .catch(function(error) {
-            //     console.log(error)
-            //     addConsole('error: ' + error)
-            // });
+            let uuid = _uuid()
+            const loginUrl = `https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id=${channelId}&redirect_uri=${redirectUri}&state=${uuid}&scope=openid%20profile&nonce=goodToGo&prompt=consent&max_age=3600&ui_locales=zh-TW&bot_prompt=aggressive`
+            // window.open(loginUrl, "_self")
+            fetch(loginUrl, {
+                // credentials: 'include',
+                // mode: 'no-cors',
+                method: 'GET', // *GET, POST, PUT, DELETE, etc.
+            })
+            .then(function(response) {
+                console.log(response)
+            })
+            .catch(function(error) {
+                console.log(error)
+                addConsole('error: ' + error)
+            });
         }
     })
 
@@ -77,11 +79,12 @@ const ready = function(){
             headers: {
               'content-type': 'application/x-www-form-urlencoded;charset=UTF-8'
             },
-            credentials: 'include',
-            mode: 'no-cors',
             method: 'POST', // *GET, POST, PUT, DELETE, etc.
         })
-        .then(response => console.log(response)) // 輸出成 json
+        .then(function(response) {
+            console.log(response)
+            window.open(joinUrl)
+        })
         .catch(function(error) {
             console.log(error)
             addConsole('error: ' + error)
@@ -120,7 +123,7 @@ function userJoin(userid) {
 
     // 開啟好盒器 LINE
     liff.openWindow({
-        url: "http://line.me/ti/p/@uuo6498s",
+        url: joinUrl,
     });
     // liff.closeWindow();  //關閉視窗
 }
@@ -189,6 +192,18 @@ function shareEvent(btn, liffUrl){
 
 function addConsole(content){
     // document.querySelector('#console').innerHTML += content + '<br />'
+}
+
+function _uuid() {
+    var d = Date.now();
+    if (typeof performance !== 'undefined' && typeof performance.now === 'function'){
+      d += performance.now(); //use high-precision timer if available
+    }
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+      var r = (d + Math.random() * 16) % 16 | 0;
+      d = Math.floor(d / 16);
+        return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+    });
 }
 
 // document.ready
