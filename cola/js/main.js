@@ -208,14 +208,17 @@ function shareEvent(btn, liffUrl){
             if (res) {
             // succeeded in sending a message through TargetPicker
             console.log(`[${res.status}] Message sent!`);
+            addConsole(`[${res.status}] Message sent!`)
             } else {
             // sending message canceled
             console.log("TargetPicker was closed!");
+            addConsole('TargetPicker was closed!')
             }
         })
         .catch(function (error) {
             // something went wrong before sending a message
             console.log("something wrong happen");
+            addConsole('something wrong happen')
         });
     } else {
         // Get the text field
@@ -231,7 +234,7 @@ function shareEvent(btn, liffUrl){
 }
 
 function addConsole(content){
-    // document.querySelector('#console').innerHTML += content + '<br />'
+    document.querySelector('#console').innerHTML += content + '<br />'
 }
 
 function _uuid() {
