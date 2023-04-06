@@ -42,6 +42,8 @@ const ready = function(){
     }).then(async() => {
         // Start to use liff's api
         addConsole(liff.isLoggedIn())
+        console.log(liff.getContext())
+
         if(liff.isLoggedIn()){
             liff
             .getProfile()
@@ -53,11 +55,6 @@ const ready = function(){
                 console.log("error", err);
             });
         }
-        liff.getContext()
-        .then((res) => {
-            console.log(res)
-            addConsole(JSON.stringify(res))
-        })
     }).catch((err) => {
         // Error happens during initialization
         console.log(err.code, err.message);
@@ -80,7 +77,7 @@ const ready = function(){
     const urlParams = new URLSearchParams(queryString);
     if(urlParams.has('code')){
         const code = urlParams.get('code')
-        // getIDToken(code)
+        getIDToken(code)
     }
     
 
@@ -91,14 +88,7 @@ const ready = function(){
             if(liff.isLoggedIn()){
                 shareEvent(btn, liffUrl)
             }else {
-                liff.login({ redirectUri: redirectUri })
-                .then((res) => {
-                    console.log(res)
-                    shareEvent(btn, liffUrl)
-                })
-                .catch((error) => {
-                    console.log(error)
-                })
+                liff.login()
             }
         })
     })
