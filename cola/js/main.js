@@ -37,28 +37,32 @@ function userJoin(id) {
 
 const ready = function(){
     // liff on line
-    if(liff.isInClient()){
-        liff.init({
-            liffId: liffId,
-        }).then(async() => {
-            // Start to use liff's api
-            addConsole(liff.isLoggedIn())
-            if(liff.isLoggedIn()){
-                liff
-                .getProfile()
-                .then((profile) => {
-                    userId = profile.userId;
-                    addConsole(userId)
-                })
-                .catch((err) => {
-                    console.log("error", err);
-                });
-            }
-        }).catch((err) => {
-            // Error happens during initialization
-            console.log(err.code, err.message);
-        });
-    }
+    liff.init({
+        liffId: liffId,
+    }).then(async() => {
+        // Start to use liff's api
+        addConsole(liff.isLoggedIn())
+        if(liff.isLoggedIn()){
+            liff
+            .getProfile()
+            .then((profile) => {
+                userId = profile.userId;
+                addConsole(userId)
+            })
+            .catch((err) => {
+                console.log("error", err);
+            });
+        }
+        liff.getContext()
+        .then((res) => {
+            console.log(res)
+            addConsole(JSON.stringify(res))
+        })
+    }).catch((err) => {
+        // Error happens during initialization
+        console.log(err.code, err.message);
+    });
+
     document.querySelector('#count_me_a_cup').addEventListener('click', (e) => {
         // on liff
         if(liff.isInClient()){
@@ -76,7 +80,7 @@ const ready = function(){
     const urlParams = new URLSearchParams(queryString);
     if(urlParams.has('code')){
         const code = urlParams.get('code')
-        getIDToken(code)
+        // getIDToken(code)
     }
     
 
@@ -84,7 +88,18 @@ const ready = function(){
     const shareBtns = document.querySelectorAll('.share-btn')
     shareBtns.forEach((btn) => {
         btn.addEventListener('click', (e) => {
-            shareEvent(btn, liffUrl)
+            if(liff.isLoggedIn()){
+                shareEvent(btn, liffUrl)
+            }else {
+                liff.login({ redirectUri: redirectUri })
+                .then((res) => {
+                    console.log(res)
+                    shareEvent(btn, liffUrl)
+                })
+                .catch((error) => {
+                    console.log(error)
+                })
+            }
         })
     })
 
@@ -191,7 +206,7 @@ function initSwiper(){
 }
 
 function shareEvent(btn, liffUrl){
-    if(liff.isInClient()){
+    if(liff.isLoggedIn() && liff.isApiAvailable('shareTargetPicker')){
         liff
         .shareTargetPicker(
             [
