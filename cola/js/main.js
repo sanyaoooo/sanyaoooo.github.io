@@ -218,7 +218,7 @@ function shareEvent(btn, liffUrl){
         .catch(function (error) {
             // something went wrong before sending a message
             console.log("something wrong happen");
-            addConsole('something wrong happen')
+            addConsole('error: ' + error)
         });
     } else {
         // Get the text field
