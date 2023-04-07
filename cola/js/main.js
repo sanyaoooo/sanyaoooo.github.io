@@ -1,9 +1,8 @@
 let userId = 'none'
 const channelId = "1655195694";
 const channelSecret = "abbddcf4bfe2a0c3992df47c5d5c139e";
-const redirectUri = "https://sanyaoooo.github.io/cola/";
+const siteUrl = "https://sanyaoooo.github.io/cola/";
 const liffId = '1655195694-8JJ47j9y';
-const liffUrl = "http://liff.line.me/1655195694-8JJ47j9y";
 const joinUrl = "https://lin.ee/4EFDSRS"; // for event 2023 earth day
 
 
@@ -65,7 +64,6 @@ const ready = function(){
             // 傳資料到好盒器 & 開啟LINE BOT
             userJoin(userId)
         } else {
-            // userLogin()
             liff.login()
         }
     })
@@ -83,7 +81,7 @@ const ready = function(){
     const shareBtns = document.querySelectorAll('.share-btn')
     shareBtns.forEach((btn) => {
         btn.addEventListener('click', (e) => {
-            shareEvent(btn, liffUrl)
+            shareEvent(btn, siteUrl)
         })
     })
 
@@ -91,29 +89,11 @@ const ready = function(){
     
 }
 
-function userLogin(){
-    let uuid = _uuid()
-    let loginUrl = 'https://access.line.me/oauth2/v2.1/authorize?'
-    // 必填
-    loginUrl += 'response_type=code' // 希望LINE回應什麼  但是目前只有code能選
-    loginUrl += `&client_id=${channelId}` // 你的頻道ID
-    loginUrl += `&redirect_uri=${redirectUri}` // 要接收回傳訊息的網址
-    loginUrl += `&state=${uuid}` // 用來防止跨站請求的 之後回傳會傳回來給你驗證
-    loginUrl += '&scope=openid%20profile' // 跟使用者要求的權限 目前就三個能選 openid profile email
-    // 選填
-    loginUrl += '&nonce=goodToGo'
-    loginUrl += '&prompt=consent'
-    loginUrl += '&max_age=3600'
-    loginUrl += '&ui_locales=zh-TW'
-    loginUrl += '&bot_prompt=normal'
-    window.open(loginUrl, "_self")
-}
-
 function getIDToken(code){
     const data = {
         "grant_type": "authorization_code",
         "code": code,
-        "redirect_uri": redirectUri,
+        "redirect_uri": siteUrl,
         "client_id": channelId,
         "client_secret": channelSecret
     }
@@ -189,14 +169,14 @@ function initSwiper(){
     });
 }
 
-function shareEvent(btn, liffUrl){
-    if(liff.isLoggedIn() && liff.isApiAvailable('shareTargetPicker')){
+function shareEvent(btn, url){
+    if(liff.isLoggedIn() && liff.isApiAvailable('shareTargetPicker') && liff.isInClient()){
         liff
         .shareTargetPicker(
             [
             {
                 type: "text",
-                text: "來麥當勞借循環杯，請你可口可樂喝一杯！%0A" + liffUrl,
+                text: "來麥當勞借循環杯，請你可口可樂喝一杯！%0A" + url,
             },
             ],
             {
@@ -219,9 +199,17 @@ function shareEvent(btn, liffUrl){
             console.log("something wrong happen");
             addConsole('error: ' + error)
         });
+    } else if (navigator.share) {
+        navigator.share({
+          title: '可口可樂x麥當勞x好盒器',
+          text: '來麥當勞借循環杯，請你可口可樂喝一杯！',
+          url: siteUrl,
+        })
+        .then(() => console.log('Successful share'))
+        .catch((error) => console.log('Error sharing', error));
     } else {
         // Get the text field
-        var copyText = "來麥當勞借循環杯，請你可口可樂喝一杯\r\n" + liffUrl;
+        var copyText = "來麥當勞借循環杯，請你可口可樂喝一杯\r\n" + url;
 
         // Copy the text inside the text field
         navigator.clipboard.writeText(copyText);
@@ -234,18 +222,6 @@ function shareEvent(btn, liffUrl){
 
 function addConsole(content){
     document.querySelector('#console').innerHTML += content + '<br />'
-}
-
-function _uuid() {
-    var d = Date.now();
-    if (typeof performance !== 'undefined' && typeof performance.now === 'function'){
-      d += performance.now(); //use high-precision timer if available
-    }
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-      var r = (d + Math.random() * 16) % 16 | 0;
-      d = Math.floor(d / 16);
-        return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
-    });
 }
 
 function encodeJson(data){
