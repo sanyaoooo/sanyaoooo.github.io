@@ -3,6 +3,7 @@ const channelId = "1655195694";
 const channelSecret = "abbddcf4bfe2a0c3992df47c5d5c139e";
 const siteUrl = "https://sanyaoooo.github.io/cola/";
 const liffId = '1655195694-8JJ47j9y';
+const liffUrl = 'https://liff.line.me/1655195694-qvgN9d5Q';
 const joinUrl = "https://lin.ee/4EFDSRS"; // for event 2023 earth day
 
 
@@ -41,7 +42,7 @@ const ready = function(){
     }).then(async() => {
         // Start to use liff's api
         addConsole(liff.isLoggedIn())
-        console.log(liff.getContext())
+        // console.log(liff.getContext())
 
         if(liff.isLoggedIn()){
             liff
@@ -221,7 +222,7 @@ function shareEvent(btn, url){
 }
 
 function addConsole(content){
-    document.querySelector('#console').innerHTML += content + '<br />'
+    // document.querySelector('#console').innerHTML += content + '<br />'
 }
 
 function encodeJson(data){
