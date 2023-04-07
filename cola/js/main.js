@@ -26,7 +26,7 @@ function userJoin(id) {
     });
 
     // 開啟好盒器 LINE
-    if(liff.isInClient){
+    if(liff.isInClient()){
         liff.openWindow({
             url: joinUrl,
         });
@@ -61,14 +61,12 @@ const ready = function(){
     });
 
     document.querySelector('#count_me_a_cup').addEventListener('click', (e) => {
-        // on liff
-        if(liff.isInClient()){
+        if(liff.isLoggedIn()){
             // 傳資料到好盒器 & 開啟LINE BOT
             userJoin(userId)
-        }
-        // on other browser
-        else {
-            userLogin()
+        } else {
+            // userLogin()
+            liff.login()
         }
     })
 
@@ -85,11 +83,7 @@ const ready = function(){
     const shareBtns = document.querySelectorAll('.share-btn')
     shareBtns.forEach((btn) => {
         btn.addEventListener('click', (e) => {
-            if(liff.isLoggedIn()){
-                shareEvent(btn, liffUrl)
-            }else {
-                liff.login()
-            }
+            shareEvent(btn, liffUrl)
         })
     })
 
