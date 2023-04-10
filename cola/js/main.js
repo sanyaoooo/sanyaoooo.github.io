@@ -63,14 +63,17 @@ const ready = function(){
             // 傳資料到好盒器 & 開啟LINE BOT
             userJoin(userId)
         } else {
-            liff.login()
+            userLogin()
         }
     })
-    document.querySelector('#logout').addEventListener('click', (e) => {
-        if(liff.isLoggedIn()){
-            liff.logout()
-        }
-    })
+
+    if(document.querySelector('#logout')){
+        document.querySelector('#logout').addEventListener('click', (e) => {
+            if(liff.isLoggedIn()){
+                liff.logout()
+            }
+        })
+    }
 
     // if get login code
     const queryString = window.location.search;
@@ -91,6 +94,24 @@ const ready = function(){
 
     initSwiper()
     
+}
+
+function userLogin(){
+    let uuid = _uuid()
+    let loginUrl = 'https://access.line.me/oauth2/v2.1/authorize?'
+    // 必填
+    loginUrl += 'response_type=code' // 希望LINE回應什麼  但是目前只有code能選
+    loginUrl += `&client_id=${channelId}` // 你的頻道ID
+    loginUrl += `&redirect_uri=${redirectUri}` // 要接收回傳訊息的網址
+    loginUrl += `&state=${uuid}` // 用來防止跨站請求的 之後回傳會傳回來給你驗證
+    loginUrl += '&scope=openid%20profile' // 跟使用者要求的權限 目前就三個能選 openid profile email
+    // 選填
+    loginUrl += '&nonce=goodToGo'
+    loginUrl += '&prompt=consent'
+    loginUrl += '&max_age=3600'
+    loginUrl += '&ui_locales=zh-TW'
+    loginUrl += '&bot_prompt=normal'
+    window.open(loginUrl, "_self")
 }
 
 function getIDToken(code){
@@ -242,6 +263,18 @@ function encodeJson(data){
     }
     formBody = formBody.join("&");
     return formBody
+}
+
+function _uuid() {
+    var d = Date.now();
+    if (typeof performance !== 'undefined' && typeof performance.now === 'function'){
+      d += performance.now(); //use high-precision timer if available
+    }
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+      var r = (d + Math.random() * 16) % 16 | 0;
+      d = Math.floor(d / 16);
+        return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+    });
 }
 
 // document.ready
