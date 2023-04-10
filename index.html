@@ -1,12 +1,357 @@
 <!DOCTYPE html>
-<html lang="tw">
+<html lang="zh-TW">
 <head>
+    <!--  
+        _               _     _                                   _____           _           _   
+        | |             | |   | |                                 |  __ \         (_)         | |  
+        | |     __ _ ___| |_  | |     ___  _ __   __ _  ___ _ __  | |__) _ __ ___  _  ___  ___| |_ 
+        | |    / _` / __| __| | |    / _ \| '_ \ / _` |/ _ | '__| |  ___| '__/ _ \| |/ _ \/ __| __|
+        | |___| (_| \__ | |_  | |___| (_) | | | | (_| |  __| |    | |   | | | (_) | |  __| (__| |_ 
+        |______\__,_|___/\__| |______\___/|_| |_|\__, |\___|_|    |_|   |_|  \___/| |\___|\___|\__|
+                                                __/ |                          _/ |              
+                                                |___/                          |__/               
+    -->
+    <title>可口可樂 X 麥當勞 X 好盒器</title>
+
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Hello world :)</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta http-equiv="Content-Language" content="zh-TW">
+    <meta name="distribution" content="global" />
+    <meta name="author" content="好盒器" />
+    <meta name="publisher" content="好盒器" />
+    <meta name="reply-to" content="lastlongerproject@gmail.com" />
+    <meta name="rating" content="general" />
+    <meta name="copyright" content="© 2023 Last Longer Project. All rights reserved." />
+    <meta name="abstract" content="好盒器推動用循環杯取代免洗杯！透過店家與民眾一同參與，從源頭落實垃圾減量，讓地球變得更美麗。" />
+
+    <meta property="og:title" content="可口可樂 X 麥當勞 X 好盒器">
+    <meta property="og:type" content="website">
+    <meta property="og:description" content="來麥當勞借循環杯，請你可口可樂喝一杯！">
+    <!-- <meta property="og:url" content="https://cola.goodtogo.tw/"> -->
+    <meta property="og:site_name" content="可口可樂 X 麥當勞 X 好盒器">
+    <meta property="og:image" content="img/feature1.jpg">
+
+    <!-- FAVICON -->
+    <link rel="apple-touch-icon" sizes="180x180" href="img/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="img/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="img/favicon/favicon-16x16.png">
+    <link rel="manifest" href="img/favicon/manifest.json">
+    <link rel="mask-icon" href="img/favicon/safari-pinned-tab.svg" color="#8cd4e0">
+    <link rel="shortcut icon" href="img/favicon/favicon.ico">
+    <meta name="apple-mobile-web-app-title" content="好盒器">
+    <meta name="application-name" content="好盒器">
+    <meta name="msapplication-config" content="img/favicon/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/swiper-bundle.min.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/rwd.css">
+
+    <script src="js/swiper-bundle.min.js" defer></script>
+    <script src="js/main.js" defer></script>
+
+    <!-- LIFF -->
+    <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+
 </head>
 <body>
+    <header>
+        <div class="bg-dec">
+            <img src="img/Vector.svg" />
+        </div>
+        <div class="container">
+            <div class="d-flex justify-between">
+                <span>2023世界地球日</span>
+                <div class="d-flex align-center gap-2 fs-xxs text-black-op-60">
+                    <img id="logo-cola" class="logo-img" src="img/logo-cocacola.svg" />
+                    ×
+                    <img id="logo-mc" class="logo-img" src="img/logo-mcdonalds.svg" />
+                    ×
+                    <img id="logo-gtg" class="logo-img" src="img/logo-goodtogo.svg" />
+                </div>
+            </div>
+        </div>
+    </header>
+    <main>
+        <section>
+            
+            <div class="container">
+            <h1 class="fw-bold">
+                <img src="img/title.png" alt="來麥當勞借循環杯，請你可口可樂喝一杯！" />
+            </h1>
+            <p>環保一杯起，一起幫未來換個杯子！</p>
+            </div>
+        </section>
+
+        <section>
+            <div class="container">
+                <div class="d-flex align-center justify-between gap-10 mb-4">
+                    <hr class="hr-dots" />
+                    <h2 class="fs-lg fw-bold text-nowrap">立刻來場循環杯之旅</h2>
+                    <hr class="hr-dots" />
+                </div>
+                <div class="step-list text-black fw-normal">
+                    <div class="step">
+                        <div class="step-img">
+                            <img src="img/step-01.svg" />
+                        </div>
+                        <p>加入<br />好盒器LINE</p>
+                        <div class="step-title">
+                            <h4>成為會員</h4>
+                        </div>
+                        <p></p>
+                    </div>
+                    <div class="step">
+                        <div class="step-img">
+                            <img src="img/step-02.svg" />
+                        </div>
+                        <p>在麥當勞<br />點餐時向櫃檯</p>
+                        <div class="step-title">
+                            <h4>借用</h4>
+                        </div>
+                        <p>循環杯</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-img">
+                            <img src="img/step-03.svg" />
+                        </div>
+                        <p>期限內<br /><br /></p>
+                        <div class="step-title">
+                            <h4>歸還</h4>
+                        </div>
+                        <p>到任一<br />合作站點</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-img">
+                            <img src="img/step-04.svg" />
+                        </div>
+                        <p>獲得<br />麥當勞中杯</p>
+                        <div class="step-title">
+                            <h4>可口可樂®</h4>
+                            <h4>兌換券</h4>
+                        </div>
+                        <p>於好盒器<br />LINE領取</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-img">
+                            <img src="img/step-05.svg" />
+                        </div>
+                        <p>到麥當勞<br /><br /></p>
+                        <div class="step-title">
+                            <h4>兌換</h4>
+                        </div>
+                        <p></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="container text-center pt-0 pb-0">
+                <p class="fs-xs text-nowrap">可於台北&台南20間麥當勞參與此活動，<br />店家列表請參考下方！</p>
+                <button id="count_me_a_cup" class="btn bg-blue mt-4 mb-5">我要參加！</button>
+                <p id="console"></p>
+                <p class="fs-xs mb-5">加入好盒器LINE完成手機綁定，就可以向櫃檯借杯囉！</p>
+                <button class="share-btn fs-sm text-link relative">
+                    邀請朋友一起參加
+                    <span class="copy-hint">已複製分享訊息</span>
+                </button>
+            </div>
+        </section>
+      
+        <section class="bg-yellow mt-6">
+            <div class="bg-dec">
+                <img id="dec-01" src="img/Vector-1.svg" />
+                <img id="dec-02" src="img/Vector-2.svg" />
+            </div>
+            <div class="container pt-0 pb-0">
+                <div class="card bg-white text-black fw-normal">
+                    <div class="d-flex align-center justify-between mb-10 relative">
+                        <div id="feature-img-01" class="feature-img ">
+                            <img src="img/feature1.jpg" />
+                        </div>
+                        <div class="relative">
+                            <h2 class="fs-lg fw-bold bg-white text-bg-tap pl-0">有借有循環</h2><br />
+                            <h2 class="fs-lg fw-bold bg-white text-bg-tap pl-0">敬一杯美好</h2>
+                            <hr class="hr-transparent mb-0" />
+                            <p class="bg-white fs-xxs text-bg-tap pl-0">沒帶環保杯，也可以零廢棄！</p><br />
+                            <p class="bg-white fs-xxs text-bg-tap pl-0">現在麥當勞櫃台可以直接借用到「循環杯」，</p><br />
+                            <p class="bg-white fs-xxs text-bg-tap pl-0">循環杯透過重複使用取代拋棄式紙杯，</p><br />
+                            <p class="bg-white fs-xxs text-bg-tap pl-0">讓大家喝飲料時有對環境更好的選擇！</p>
+                        </div>
+                    </div>
+                    <div class="d-flex align-center justify-end relative">
+                        <div id="feature-img-02" class="feature-img">
+                            <img src="img/feature2.jpg" />
+                        </div>
+                        <div class="relative text-right">
+                            <h2 class="fs-lg fw-bold bg-white text-bg-tap pr-0">歸還成功</h2><br />
+                            <h2 class="fs-lg fw-bold bg-white text-bg-tap pr-0"><span class="text-yellow">麥當勞</span><span class="fs-xxxs verticle-middle"> × </span><span class="text-red">可口可樂®</span> 請你喝一杯</h2>
+                            <hr class="hr-transparent mb-0" />
+                            <p class="bg-white fs-xxs text-bg-tap pr-0">享用完飲料後，別忘了歸還杯子，</p><br />
+                            <p class="bg-white fs-xxs text-bg-tap pr-0">讓循環杯透過清洗消毒再次出任務！</p><br />
+                            <p class="bg-white fs-xxs text-bg-tap pr-0">期限內完成歸還，再送麥當勞中杯可口可樂®免費兌換券！</p><br />
+                        </div>
+                    </div>
+                    <div class="">
+                        <div class="mt-12 mb-4 text-center">
+                            <img class="icon-img" src="img/next-down.svg" />
+                        </div>
+                        <p class="fs-xxs text-center mb-2">限定出沒</p>
+                        <h2 class="fw-bold fs-lg text-center">台北＆台南 20 間<span class="text-yellow"> 麥當勞 </span>共同響應</h2>
+                        <div class="swiper">
+                            
+                            <div class="tab-button-wrap"></div>
+                            <div class="swiper-wrapper tab-content-wrap">
+                                <div id="tab-01" class="swiper-slide tab-content">
+                                    <div class="d-grid grid-2 grid-3-md gap-2">
+                                        <a href="https://goo.gl/maps/4y3Pdem5yMvT5Z8g9" target="_blank" class="shop-cube">
+                                            <h4 class="fw-bold fs-sm">麥當勞民生三餐廳</h4>
+                                            <p class="fs-xxxs text-nowrap">台北市民生西路55號</p>
+                                        </a>
+                                        <a href="https://goo.gl/maps/sugS1mjQidJmU6KB6" target="_blank" class="shop-cube">
+                                            <h4 class="fw-bold fs-sm">麥當勞承德餐廳</h4>
+                                            <p class="fs-xxxs text-nowrap">台北市承德路一段34號</p>
+                                        </a>
+                                        <a href="https://goo.gl/maps/aeDfvAqNae8AM3Cf7" target="_blank" class="shop-cube">
+                                            <h4 class="fw-bold fs-sm">麥當勞長春餐廳</h4>
+                                            <p class="fs-xxxs text-nowrap">台北市長春路172號</p>
+                                        </a>
+                                        <a href="https://goo.gl/maps/aMHjGP46dDxtKbr68" target="_blank" class="shop-cube">
+                                            <h4 class="fw-bold fs-sm">麥當勞濟南餐廳</h4>
+                                            <p class="fs-xxxs text-nowrap">台北市濟南路二段66號</p>
+                                        </a>
+                                        <a href="https://goo.gl/maps/qSyzRkXJmK3AJbEn6" target="_blank" class="shop-cube">
+                                            <h4 class="fw-bold fs-sm">麥當勞南昌餐廳</h4>
+                                            <p class="fs-xxxs text-nowrap">台北市南昌路一段149號</p>
+                                        </a>
+                                        <a href="https://goo.gl/maps/Xv713fqymvoJ17zq9" target="_blank" class="shop-cube">
+                                            <h4 class="fw-bold fs-sm">麥當勞光復餐廳</h4>
+                                            <p class="fs-xxxs text-nowrap">台北市光復南路286號</p>
+                                        </a>
+                                        <a href="https://goo.gl/maps/qE6297vvkanfDkTz6" target="_blank" class="shop-cube">
+                                            <h4 class="fw-bold fs-sm">麥當勞信義餐廳</h4>
+                                            <p class="fs-xxxs text-nowrap">台北市信義路四段273號</p>
+                                        </a>
+                                        <a href="https://goo.gl/maps/yCBowh1nynDpmpFg6" target="_blank" class="shop-cube">
+                                            <h4 class="fw-bold fs-sm">麥當勞忠孝五餐廳</h4>
+                                            <p class="fs-xxxs text-nowrap">台北市忠孝東路四段73-1號</p>
+                                        </a>
+                                        <a href="https://goo.gl/maps/hjfRYX3SzEGDZe5b7" target="_blank" class="shop-cube">
+                                            <h4 class="fw-bold fs-sm">麥當勞台大餐廳</h4>
+                                            <p class="fs-xxxs text-nowrap">台北市羅斯福路四段1號</p>
+                                        </a>
+                                        <a href="https://goo.gl/maps/Xf98Ks5Xxctq8TLr6" target="_blank" class="shop-cube">
+                                            <h4 class="fw-bold fs-sm">麥當勞復興二餐廳</h4>
+                                            <p class="fs-xxxs text-nowrap">台北市復興南路二段273號</p>
+                                        </a>
+                                        <a href="https://goo.gl/maps/L4zE6gsDwEEwDF349" target="_blank" class="shop-cube">
+                                            <h4 class="fw-bold fs-sm">麥當勞民生三餐廳</h4>
+                                            <p class="fs-xxxs text-nowrap">台北市民生西路55號</p>
+                                        </a>
+                                        <a href="https://goo.gl/maps/z9Yis6Fc9X139DwT6" target="_blank" class="shop-cube">
+                                            <h4 class="fw-bold fs-sm">麥當勞莊敬餐廳</h4>
+                                            <p class="fs-xxxs text-nowrap">台北市莊敬路475號</p>
+                                        </a>
+                                        <a href="https://goo.gl/maps/WxPFSdfhvCxuAcqx8" target="_blank" class="shop-cube">
+                                            <h4 class="fw-bold fs-sm">麥當勞公園餐廳</h4>
+                                            <p class="fs-xxxs text-nowrap">台北市公園路30-1號</p>
+                                        </a>
+                                        <a href="https://goo.gl/maps/2guxAGqcZKn2wjki9" target="_blank" class="shop-cube">
+                                            <h4 class="fw-bold fs-sm">麥當勞新生餐廳</h4>
+                                            <p class="fs-xxxs text-nowrap">台北市新生南路三段88-2號</p>
+                                        </a>
+                                        <a href="https://goo.gl/maps/V4ytBuMJNunDeBnq7" target="_blank" class="shop-cube">
+                                            <h4 class="fw-bold fs-sm">麥當勞公館餐廳</h4>
+                                            <p class="fs-xxxs text-nowrap">台北市羅斯福路四段76-1號</p>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div id="tab-02" class="swiper-slide tab-content">
+                                    <div class="d-grid grid-2 grid-3-md gap-2">
+                                        <a href="https://goo.gl/maps/Dh5SoiA7jeM8Kjd28" target="_blank" class="shop-cube">
+                                            <h4 class="fw-bold fs-sm">麥當勞西門餐廳</h4>
+                                            <p class="fs-xxxs text-nowrap">台南市西門路二段96號</p>
+                                        </a>
+                                        <a href="https://goo.gl/maps/R9aUE1yCEeDdj1Y78" target="_blank" class="shop-cube">
+                                            <h4 class="fw-bold fs-sm">麥當勞民族餐廳</h4>
+                                            <p class="fs-xxxs text-nowrap">台南市西華南街65號</p>
+                                        </a>
+                                        <a href="https://goo.gl/maps/ktahAYQVKMGYELnX7" target="_blank" class="shop-cube">
+                                            <h4 class="fw-bold fs-sm">麥當勞健康餐廳</h4>
+                                            <p class="fs-xxxs text-nowrap">台南市健康路一段48號</p>
+                                        </a>
+                                        <a href="https://goo.gl/maps/uKa4xixVQxbFy37w7" target="_blank" class="shop-cube">
+                                            <h4 class="fw-bold fs-sm">麥當勞大學餐廳</h4>
+                                            <p class="fs-xxxs text-nowrap">台南市大學路26號</p>
+                                        </a>
+                                        <a href="https://goo.gl/maps/Q2Z6XhdseTynMjSP8" target="_blank" class="shop-cube">
+                                            <h4 class="fw-bold fs-sm">麥當勞東門餐廳</h4>
+                                            <p class="fs-xxxs text-nowrap">台南市東門路二段353號</p>
+                                        </a>
+                                        <a href="https://goo.gl/maps/WFfC8JLVCJnCnrmx8" target="_blank" class="shop-cube">
+                                            <h4 class="fw-bold fs-sm">麥當勞西門二餐廳</h4>
+                                            <p class="fs-xxxs text-nowrap">台南市西門路四段66號</p>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="bg-dec">
+                <img id="dec-03" src="img/Vector-3.svg" />
+            </div>
+            <div class="container fs-xs fw-normal lh-4">
+                <h3 class="fw-bold mt-4 fs-xs">活動內容</h3>
+                <p>凡於活動期間，至提供循環杯服務之20間麥當勞餐廳，借用好盒器循環杯購買飲品，並在期限內歸還循環杯者，即可於好盒器LINE獲得麥當勞中杯可口可樂®免費兌換券乙張（須使用於麥當勞櫃台借用之循環杯兌換）</p>
+                <h3 class="fw-bold mt-4 fs-xs">活動日期</h3>
+                <ul class="list-dot">
+                    <li>兌換券領取時間 2023-04-14 至 2023-05-31 </li>
+                    <li>兌換券使用期間 2023-04-14 至 2023-06-27 </li>
+                </ul>
+                <h3 class="fw-bold mt-4 fs-xs">兌換券領取處</h3>
+                <p>好盒器LINE中「點數與優惠券」，每個帳號限領一張</p>
+                <h3 class="fw-bold mt-4 fs-xs">注意事項</h3>
+                <ul class="list-dot">
+                    <li>循環杯借出後需於三日內歸還，才可獲得麥當勞中杯可口可樂®兌換券</li>
+                    <li>循環杯可盛裝之飲品請依麥當勞餐廳實際供應為準，並不可使用於玉米湯、果汁、鮮乳等包裝飲品</li>
+                    <li>每個帳號限參加活動乙次</li>
+                    <li>兌換之中杯可口可樂®須至提供循環杯服務之20間麥當勞餐廳兌換，並由麥當勞櫃台借用之好盒器循環杯盛裝</li>
+                    <li>不得與其他折價券或優惠活動同時使用</li>
+                    <li>兌換券限使用一次，不得重複使用，並僅限本人使用，不得移轉予他人</li>
+                    <li>兌換券須以行動裝置出示，並由店舖夥伴點選「確認使用」後即可兌換，截圖、翻拍、影印或其他任何形式出示皆不得兌換</li>
+                    <li>若遇不可抗拒之事由導致本兌換券無法使用，主辦單位保留更換其他等值兌換券之權利</li>
+                    <li>本活動保有相關細節最終解釋權，如有未盡事宜，主辦單位得修訂之</li>
+                    <li>循環杯服務為好盒器提供，如您有任何產品服務或租還相關問題，請洽好盒器FB客服（<a href="https://m.me/goodtogo.tw" target="_blank">https://m.me/goodtogo.tw</a>）</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+    <footer class="bg-yellow mt-6">
+        <div class="bg-dec">
+            <img id="dec-04" src="img/Vector-4.svg" />
+        </div>
+        <div class="container pt-0 text-center">
+            <hr class="hr-dots mb-6" />
+            <div class="d-flex align-center justify-center gap-2 fs-xxs text-black-op-60 mb-4">
+                <img id="logo-cola" class="logo-img" src="img/logo-cocacola.svg" />
+                ×
+                <img id="logo-mc" class="logo-img" src="img/logo-mcdonalds.svg" />
+                ×
+                <img id="logo-gtg" class="logo-img" src="img/logo-goodtogo.svg" />
+            </div>
+            <p class="fs-xxxs">© 2023 人嶼物股份有限公司</p>
+        </div>
+    </footer>
+        
 </body>
-    
 </html>
