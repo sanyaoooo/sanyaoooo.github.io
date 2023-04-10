@@ -1,7 +1,7 @@
 let userId = 'none'
 const channelId = "1655195694";
 const channelSecret = "abbddcf4bfe2a0c3992df47c5d5c139e";
-const siteUrl = "https://sanyaoooo.github.io/cola/";
+const siteUrl = "https://2023-earthday.goodtogo.tw/";
 const liffId = '1655195694-8JJ47j9y';
 const liffUrl = 'https://liff.line.me/1655195694-qvgN9d5Q';
 const joinUrl = "https://lin.ee/4EFDSRS"; // for event 2023 earth day
@@ -9,14 +9,15 @@ const joinUrl = "https://lin.ee/4EFDSRS"; // for event 2023 earth day
 
 // 傳資料到好盒器 & 開啟LINE BOT
 function userJoin(id) {
-    fetch("https://zyjeng.com/api/cola", {
+    fetch("http://app.goodtogo.tw/v8/engagement/campaign/2023earthday", {
         method: "POST",
-        body: JSON.stringify({
-            userId: id,
-            endpoint: "0",
-        }),
+        // body: JSON.stringify({
+        //     userId: id,
+        //     endpoint: "0",
+        // }),
         headers: {
-            "Content-type": "application/json; charset=UTF-8"
+            // "Content-type": "application/json; charset=UTF-8",
+            "line-id": id
         }
     })
     .then((response) => response.json() )
@@ -41,7 +42,7 @@ const ready = function(){
         liffId: liffId,
     }).then(async() => {
         // Start to use liff's api
-        addConsole(liff.isLoggedIn())
+        addConsole('isLoggedIn: ' + liff.isLoggedIn())
         // console.log(liff.getContext())
 
         if(liff.isLoggedIn()){
@@ -59,6 +60,8 @@ const ready = function(){
         // Error happens during initialization
         console.log(err.code, err.message);
     });
+
+    addConsole('isInClient: ' + liff.isInClient())
 
     document.querySelector('#count_me_a_cup').addEventListener('click', (e) => {
         if(liff.isLoggedIn()){
@@ -222,7 +225,7 @@ function shareEvent(btn, url){
 }
 
 function addConsole(content){
-    // document.querySelector('#console').innerHTML += content + '<br />'
+    document.querySelector('#console').innerHTML += content + '<br />'
 }
 
 function encodeJson(data){
