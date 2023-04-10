@@ -102,7 +102,7 @@ function userLogin(){
     // 必填
     loginUrl += 'response_type=code' // 希望LINE回應什麼  但是目前只有code能選
     loginUrl += `&client_id=${channelId}` // 你的頻道ID
-    loginUrl += `&redirect_uri=${redirectUri}` // 要接收回傳訊息的網址
+    loginUrl += `&redirect_uri=${siteUrl}` // 要接收回傳訊息的網址
     loginUrl += `&state=${uuid}` // 用來防止跨站請求的 之後回傳會傳回來給你驗證
     loginUrl += '&scope=openid%20profile' // 跟使用者要求的權限 目前就三個能選 openid profile email
     // 選填
