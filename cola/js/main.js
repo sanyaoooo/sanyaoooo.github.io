@@ -1,7 +1,7 @@
 let userId = 'none'
 const channelId = "1655195694";
 const channelSecret = "abbddcf4bfe2a0c3992df47c5d5c139e";
-const siteUrl = "https://sanyaoooo.github.io/cola";
+const siteUrl = "https://2023-earthday.goodtogo.tw";
 const liffId = '1655195694-8JJ47j9y';
 const liffUrl = 'https://liff.line.me/1655195694-8JJ47j9y';
 const joinUrl = "https://lin.ee/4EFDSRS"; // for event 2023 earth day
@@ -18,9 +18,9 @@ function userJoin(id) {
             }
         })
         .then((response) => response.json() )
-        .then((json) => addConsole('response: ' + JSON.stringify(json)))
+        .then((json) => addConsole('Join response: ' + JSON.stringify(json)))
         .catch(function(error) {
-            addConsole('error: ' + error)
+            addConsole('Join error: ' + error)
         });
     }
     
@@ -30,7 +30,7 @@ function userJoin(id) {
             url: joinUrl,
         });
     }else {
-        window.open(joinUrl, '_self')
+        // window.open(joinUrl, '_self')
     }
 }
 
@@ -253,7 +253,7 @@ function shareEvent(btn, url){
 }
 
 function addConsole(content){
-    // document.querySelector('#console').innerHTML += content + '<br />'
+    document.querySelector('#console').innerHTML += content + '<br />'
 }
 
 function encodeJson(data){
