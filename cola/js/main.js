@@ -10,7 +10,7 @@ const joinUrl = "https://lin.ee/4EFDSRS"; // for event 2023 earth day
 // 傳資料到好盒器 & 開啟LINE BOT
 function userJoin(id) {
     fetch("https://app.goodtogo.tw/v8/engagement/campaign/2023earthday", {
-        method: "POST",
+        method: "GET",
         // body: JSON.stringify({
         //     userId: id,
         //     endpoint: "0",
