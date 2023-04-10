@@ -30,7 +30,7 @@ function userJoin(id) {
             url: joinUrl,
         });
     }else {
-        // window.open(joinUrl, '_self')
+        window.open(joinUrl, '_self')
     }
 }
 
@@ -253,7 +253,7 @@ function shareEvent(btn, url){
 }
 
 function addConsole(content){
-    document.querySelector('#console').innerHTML += content + '<br />'
+    // document.querySelector('#console').innerHTML += content + '<br />'
 }
 
 function encodeJson(data){
