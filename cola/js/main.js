@@ -105,6 +105,7 @@ function getIDToken(code){
         method: 'POST', // *GET, POST, PUT, DELETE, etc.
     })
     .then(function(response) {
+        addConsole('getIDToken response: ' + JSON.stringify(response.json))
         return response.json()
     })
     .then(function(json) {
