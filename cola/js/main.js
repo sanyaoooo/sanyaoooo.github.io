@@ -1,7 +1,7 @@
 let userId = 'none'
 const channelId = "1655195694";
 const channelSecret = "abbddcf4bfe2a0c3992df47c5d5c139e";
-const siteUrl = "https://sanyaoooo.github.io/cola/";
+const siteUrl = "https://sanyaoooo.github.io/cola";
 const liffId = '1655195694-8JJ47j9y';
 const liffUrl = 'https://liff.line.me/1655195694-8JJ47j9y';
 const joinUrl = "https://lin.ee/4EFDSRS"; // for event 2023 earth day
@@ -63,7 +63,7 @@ const ready = function(){
             // 傳資料到好盒器 & 開啟LINE BOT
             userJoin(userId)
         } else {
-            userLogin()
+            liff.login({ redirectUri: siteUrl });
         }
     })
 
@@ -131,7 +131,6 @@ function getIDToken(code){
         method: 'POST', // *GET, POST, PUT, DELETE, etc.
     })
     .then(function(response) {
-        addConsole('getIDToken response: ' + JSON.stringify(response.json))
         return response.json()
     })
     .then(function(json) {
@@ -158,7 +157,6 @@ function getProfile(token){
         method: 'POST', // *GET, POST, PUT, DELETE, etc.
     })
     .then(function(response) {
-        addConsole('getProfile response: ' + JSON.stringify(response.json))
         return response.json()
     })
     .then(function(json) {
@@ -168,7 +166,7 @@ function getProfile(token){
     .then(function(id){
         addConsole('getProfile ID: ' + id)
         if(id !== undefined && id !== "none"){
-            // userJoin(id)
+            userJoin(id)
         }
     })
     .catch(function(error) {
