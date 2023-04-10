@@ -131,6 +131,7 @@ function getProfile(token){
         method: 'POST', // *GET, POST, PUT, DELETE, etc.
     })
     .then(function(response) {
+        addConsole('getProfile response: ' + JSON.stringify(response.json))
         return response.json()
     })
     .then(function(json) {
