@@ -134,11 +134,14 @@ function getProfile(token){
         return response.json()
     })
     .then(function(json) {
-        // console.log(json)
+        console.log(json)
         return json.sub
     })
     .then(function(id){
-        userJoin(id)
+        addConsole('getProfile ID: ' + id)
+        if(id !== undefined && id !== "none"){
+            // userJoin(id)
+        }
     })
     .catch(function(error) {
         console.log(error)
