@@ -66,6 +66,11 @@ const ready = function(){
             liff.login()
         }
     })
+    document.querySelector('#logout').addEventListener('click', (e) => {
+        if(liff.isLoggedIn()){
+            liff.logout()
+        }
+    })
 
     // if get login code
     const queryString = window.location.search;
