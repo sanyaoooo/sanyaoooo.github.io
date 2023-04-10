@@ -3,20 +3,15 @@ const channelId = "1655195694";
 const channelSecret = "abbddcf4bfe2a0c3992df47c5d5c139e";
 const siteUrl = "https://sanyaoooo.github.io/cola/";
 const liffId = '1655195694-8JJ47j9y';
-const liffUrl = 'https://liff.line.me/1655195694-qvgN9d5Q';
+const liffUrl = 'https://liff.line.me/1655195694-8JJ47j9y';
 const joinUrl = "https://lin.ee/4EFDSRS"; // for event 2023 earth day
 
 
 // 傳資料到好盒器 & 開啟LINE BOT
 function userJoin(id) {
-    fetch("https://app.goodtogo.tw/v8/engagement/campaign/2023earthday", {
-        method: "GET",
-        // body: JSON.stringify({
-        //     userId: id,
-        //     endpoint: "0",
-        // }),
+    fetch("https://app.goodtogo.tw/dev/engagement/campaign/2023earthday", {
+        method: "POST",
         headers: {
-            // "Content-type": "application/json; charset=UTF-8",
             "line-id": id
         }
     })
@@ -118,7 +113,7 @@ function getIDToken(code){
     })
     .catch(function(error) {
         console.log(error)
-        addConsole('error: ' + error)
+        addConsole('getIDToken error: ' + error)
     });
 }
 
@@ -147,7 +142,7 @@ function getProfile(token){
     })
     .catch(function(error) {
         console.log(error)
-        addConsole('error: ' + error)
+        addConsole('getProfile error: ' + error)
     });
 }
 
