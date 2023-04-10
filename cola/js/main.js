@@ -5,22 +5,25 @@ const siteUrl = "https://sanyaoooo.github.io/cola";
 const liffId = '1655195694-8JJ47j9y';
 const liffUrl = 'https://liff.line.me/1655195694-8JJ47j9y';
 const joinUrl = "https://lin.ee/4EFDSRS"; // for event 2023 earth day
+const apiUrl = "https://app.goodtogo.tw/dev/engagement/campaign/2023earthday"
 
 
 // 傳資料到好盒器 & 開啟LINE BOT
 function userJoin(id) {
-    fetch("https://app.goodtogo.tw/dev/engagement/campaign/2023earthday", {
-        method: "POST",
-        headers: {
-            "line-id": id
-        }
-    })
-    .then((response) => response.json() )
-    .then((json) => addConsole('response: ' + JSON.stringify(json)))
-    .catch(function(error) {
-        addConsole('error: ' + error)
-    });
-
+    if(id !== "none" && id !== undefined){
+        fetch(apiUrl, {
+            method: "POST",
+            headers: {
+                "line-id": id
+            }
+        })
+        .then((response) => response.json() )
+        .then((json) => addConsole('response: ' + JSON.stringify(json)))
+        .catch(function(error) {
+            addConsole('error: ' + error)
+        });
+    }
+    
     // 開啟好盒器 LINE
     if(liff.isInClient()){
         liff.openWindow({
@@ -161,12 +164,12 @@ function getProfile(token){
         return response.json()
     })
     .then(function(json) {
-        console.log(json)
+        // console.log(json)
         return json.sub
     })
     .then(function(id){
         addConsole('getProfile ID: ' + id)
-        if(id !== undefined && id !== "none"){
+        if(id !== undefined){
             userJoin(id)
         }
     })
