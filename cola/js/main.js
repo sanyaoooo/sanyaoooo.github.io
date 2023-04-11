@@ -36,7 +36,7 @@ function userJoin(id) {
 }
 
 const ready = function(){
-    console.log(`History.state before pushState: ${history.state}`);
+    console.log(`History.length: ${history.length}`);
 
     // liff on line
     liff.init({
