@@ -50,6 +50,20 @@ const ready = function(){
             .then((profile) => {
                 userId = profile.userId;
                 addConsole(userId)
+
+                // if get login code
+                const queryString = window.location.search;
+                const urlParams = new URLSearchParams(queryString);
+                if(urlParams.has('code')){
+                    console.log('has code, isLoggedIn: ' + liff.isLoggedIn())
+                    document.querySelector('#count_me_a_cup').click()
+                    // addConsole('isLoggedIn: ' + liff.isLoggedIn())
+                    // if(liff.isLoggedIn()){
+                    //     userJoin()
+                    // }
+                    // getIDToken(code)
+                }
+                
             })
             .catch((err) => {
                 console.log("error", err);
@@ -80,18 +94,7 @@ const ready = function(){
         })
     }
 
-    // if get login code
-    const queryString = window.location.search;
-    const urlParams = new URLSearchParams(queryString);
-    if(urlParams.has('code')){
-        console.log('has code, isLoggedIn: ' + liff.isLoggedIn())
-        document.querySelector('#count_me_a_cup').click()
-        // addConsole('isLoggedIn: ' + liff.isLoggedIn())
-        // if(liff.isLoggedIn()){
-        //     userJoin()
-        // }
-        // getIDToken(code)
-    }
+    
 
     // share liff
     const shareBtns = document.querySelectorAll('.share-btn')
