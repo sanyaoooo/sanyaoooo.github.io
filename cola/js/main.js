@@ -84,6 +84,7 @@ const ready = function(){
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     if(urlParams.has('code')){
+        console.log('has code')
         const code = urlParams.get('code')
         addConsole('isLoggedIn: ' + liff.isLoggedIn())
         if(liff.isLoggedIn()){
