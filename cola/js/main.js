@@ -36,6 +36,8 @@ function userJoin(id) {
 }
 
 const ready = function(){
+    console.log(`History.state before pushState: ${history.state}`);
+
     // liff on line
     liff.init({
         liffId: liffId,
@@ -56,14 +58,9 @@ const ready = function(){
                 const urlParams = new URLSearchParams(queryString);
                 if(urlParams.has('code')){
                     console.log('has code, isLoggedIn: ' + liff.isLoggedIn())
-                    document.querySelector('#count_me_a_cup').click()
-                    // addConsole('isLoggedIn: ' + liff.isLoggedIn())
-                    // if(liff.isLoggedIn()){
-                    //     userJoin()
-                    // }
-                    // getIDToken(code)
+                    // document.querySelector('#count_me_a_cup').click()
                 }
-                
+
             })
             .catch((err) => {
                 console.log("error", err);
