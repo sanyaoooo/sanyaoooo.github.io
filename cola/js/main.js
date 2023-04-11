@@ -88,8 +88,6 @@ const ready = function(){
         })
     }
 
-    
-
     // share liff
     const shareBtns = document.querySelectorAll('.share-btn')
     shareBtns.forEach((btn) => {
@@ -100,85 +98,6 @@ const ready = function(){
 
     initSwiper()
     
-}
-
-function userLogin(){
-    let uuid = _uuid()
-    let loginUrl = 'https://access.line.me/oauth2/v2.1/authorize?'
-    // 必填
-    loginUrl += 'response_type=code' // 希望LINE回應什麼  但是目前只有code能選
-    loginUrl += `&client_id=${channelId}` // 你的頻道ID
-    loginUrl += `&redirect_uri=${siteUrl}` // 要接收回傳訊息的網址
-    loginUrl += `&state=${uuid}` // 用來防止跨站請求的 之後回傳會傳回來給你驗證
-    loginUrl += '&scope=openid%20profile' // 跟使用者要求的權限 目前就三個能選 openid profile email
-    // 選填
-    loginUrl += '&nonce=goodToGo'
-    loginUrl += '&prompt=consent'
-    loginUrl += '&max_age=3600'
-    loginUrl += '&ui_locales=zh-TW'
-    loginUrl += '&bot_prompt=normal'
-    window.open(loginUrl, "_self")
-}
-
-function getIDToken(code){
-    const data = {
-        "grant_type": "authorization_code",
-        "code": code,
-        "redirect_uri": siteUrl,
-        "client_id": channelId,
-        "client_secret": channelSecret
-    }
-    let formBody = encodeJson(data)
-    fetch("https://api.line.me/oauth2/v2.1/token", {
-        body: formBody, // must match 'Content-Type' header
-        headers: {
-          'content-type': 'application/x-www-form-urlencoded'
-        },
-        method: 'POST', // *GET, POST, PUT, DELETE, etc.
-    })
-    .then(function(response) {
-        return response.json()
-    })
-    .then(function(json) {
-        // console.log(json)
-        getProfile(json.id_token)
-    })
-    .catch(function(error) {
-        console.log(error)
-        addConsole('getIDToken error: ' + error)
-    });
-}
-
-function getProfile(token){
-    const data = {
-        "id_token": token,
-        "client_id": channelId,
-    }
-    let formBody = encodeJson(data)
-    fetch("https://api.line.me/oauth2/v2.1/verify", {
-        body: formBody, // must match 'Content-Type' header
-        headers: {
-            'content-type': 'application/x-www-form-urlencoded'
-        },
-        method: 'POST', // *GET, POST, PUT, DELETE, etc.
-    })
-    .then(function(response) {
-        return response.json()
-    })
-    .then(function(json) {
-        // console.log(json)
-        return json.sub
-    })
-    .then(function(id){
-        addConsole('getProfile ID: ' + id)
-        if(id !== undefined){
-            userJoin(id)
-        }
-    })
-    .catch(function(error) {
-        console.log(error)
-        addConsole('getProfile error: ' + error)
-    });
 }
 
 function initSwiper(){
