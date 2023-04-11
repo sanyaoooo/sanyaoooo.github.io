@@ -123,7 +123,7 @@ function initSwiper(){
 }
 
 function shareEvent(btn, url){
-    if(liff.isApiAvailable('shareTargetPicker')){
+    if(liff.isApiAvailable('shareTargetPicker') && liff.isInClient()){
         liff
         .shareTargetPicker(
             [
