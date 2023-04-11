@@ -36,8 +36,6 @@ function userJoin(id) {
 }
 
 const ready = function(){
-    console.log(`History.length: ${history.length}`);
-
     // liff on line
     liff.init({
         liffId: liffId,
@@ -57,8 +55,7 @@ const ready = function(){
                 const queryString = window.location.search;
                 const urlParams = new URLSearchParams(queryString);
                 if(urlParams.has('code')){
-                    console.log('has code, isLoggedIn: ' + liff.isLoggedIn())
-                    // document.querySelector('#count_me_a_cup').click()
+                    document.querySelector('#count_me_a_cup').click()
                 }
 
             })
