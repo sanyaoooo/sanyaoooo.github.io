@@ -84,12 +84,12 @@ const ready = function(){
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     if(urlParams.has('code')){
-        console.log('has code')
-        const code = urlParams.get('code')
-        addConsole('isLoggedIn: ' + liff.isLoggedIn())
-        if(liff.isLoggedIn()){
-            userJoin()
-        }
+        console.log('has code, isLoggedIn: ' + liff.isLoggedIn())
+        document.querySelector('#count_me_a_cup').click()
+        // addConsole('isLoggedIn: ' + liff.isLoggedIn())
+        // if(liff.isLoggedIn()){
+        //     userJoin()
+        // }
         // getIDToken(code)
     }
 
