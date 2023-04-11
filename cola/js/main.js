@@ -1,7 +1,7 @@
 let userId = 'none'
 const channelId = "1655195694";
 const channelSecret = "abbddcf4bfe2a0c3992df47c5d5c139e";
-const siteUrl = "https://sanyaoooo.github.io/cola/";
+const siteUrl = "https://sanyaoooo.github.io/cola";
 const liffId = '1655195694-8JJ47j9y';
 const liffUrl = 'https://liff.line.me/1655195694-8JJ47j9y';
 const joinUrl = "https://lin.ee/4EFDSRS"; // for event 2023 earth day
@@ -17,20 +17,21 @@ function userJoin(id) {
                 "line-id": id
             }
         })
-        .then((response) => response.json() )
-        .then((json) => addConsole('Join response: ' + JSON.stringify(json)))
+        .then( (response) => response.json() )
+        .then( function(json) {
+            addConsole('Join response: ' + JSON.stringify(json))
+            // 開啟好盒器 LINE
+            if(liff.isInClient()){
+                liff.openWindow({
+                    url: joinUrl,
+                });
+            }else {
+                window.open(joinUrl, '_self')
+            }
+        })
         .catch(function(error) {
             addConsole('Join error: ' + error)
         });
-    }
-    
-    // 開啟好盒器 LINE
-    if(liff.isInClient()){
-        liff.openWindow({
-            url: joinUrl,
-        });
-    }else {
-        // window.open(joinUrl, '_self')
     }
 }
 
@@ -66,8 +67,8 @@ const ready = function(){
             // 傳資料到好盒器 & 開啟LINE BOT
             userJoin(userId)
         } else {
-            // liff.login({ redirectUri: siteUrl });
-            userLogin()
+            liff.login({ redirectUri: siteUrl });
+            // userLogin()
         }
     })
 
@@ -84,9 +85,12 @@ const ready = function(){
     const urlParams = new URLSearchParams(queryString);
     if(urlParams.has('code')){
         const code = urlParams.get('code')
-        getIDToken(code)
+        addConsole('isLoggedIn: ' + liff.isLoggedIn())
+        if(liff.isLoggedIn()){
+            userJoin()
+        }
+        // getIDToken(code)
     }
-    
 
     // share liff
     const shareBtns = document.querySelectorAll('.share-btn')
@@ -202,7 +206,7 @@ function initSwiper(){
 }
 
 function shareEvent(btn, url){
-    if(liff.isLoggedIn() && liff.isApiAvailable('shareTargetPicker') && liff.isInClient()){
+    if(liff.isApiAvailable('shareTargetPicker')){
         liff
         .shareTargetPicker(
             [
