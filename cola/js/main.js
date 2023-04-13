@@ -1,11 +1,9 @@
 let userId = 'none'
-const channelId = "1655195694";
-const channelSecret = "abbddcf4bfe2a0c3992df47c5d5c139e";
 const siteUrl = "https://sanyaoooo.github.io/cola";
-const liffId = '1655195694-8JJ47j9y';
-const liffUrl = 'https://liff.line.me/1655195694-8JJ47j9y';
-const joinUrl = "https://lin.ee/4EFDSRS"; // for event 2023 earth day
-const apiUrl = "https://app.goodtogo.tw/dev/engagement/campaign/2023earthday"
+const liffId = '1655196878-X4ZDmaQl';
+const liffUrl = 'https://liff.line.me/1655196878-X4ZDmaQl';
+const joinUrl = "https://lin.ee/nTpgglc"; // for event 2023 earth day
+const apiUrl = "https://app.goodtogo.tw/v8/engagement/campaign/2023earthday"
 
 
 // 傳資料到好盒器 & 開啟LINE BOT
@@ -123,7 +121,7 @@ function initSwiper(){
 }
 
 function shareEvent(btn, url){
-    if(liff.isApiAvailable('shareTargetPicker') && liff.isInClient()){
+    if(liff.isApiAvailable('shareTargetPicker')){
         liff
         .shareTargetPicker(
             [
@@ -148,56 +146,47 @@ function shareEvent(btn, url){
             }
         })
         .catch(function (error) {
+            shareOnBrowser(btn, url)
             // something went wrong before sending a message
-            console.log("something wrong happen");
-            addConsole('error: ' + error)
+            console.log("TargetPicker something wrong happen");
+            addConsole('TargetPicker Error: ' + error)
         });
-    } else if (navigator.share) {
+    } else {
+        shareOnBrowser(btn, url)
+    }
+}
+
+function shareOnBrowser(btn, url){
+    if (navigator.share) {
         navigator.share({
           title: '可口可樂x麥當勞x好盒器',
           text: '來麥當勞借循環杯，請你可口可樂喝一杯！',
           url: siteUrl,
         })
         .then(() => console.log('Successful share'))
-        .catch((error) => console.log('Error sharing', error));
+        .catch((error) => {
+            copyShareText(btn, url)
+            console.log('Error sharing', error)
+        });
     } else {
-        // Get the text field
-        var copyText = "來麥當勞借循環杯，請你可口可樂喝一杯\r\n" + url;
-
-        // Copy the text inside the text field
-        navigator.clipboard.writeText(copyText);
-        btn.querySelector('.copy-hint').classList.add('active')
-        setTimeout(() => {
-            btn.querySelector('.copy-hint').classList.remove('active')
-        }, 1600)
+        copyShareText(btn, url)
     }
+}
+
+function copyShareText(btn, url){
+    // Get the text field
+    var copyText = "來麥當勞借循環杯，請你可口可樂喝一杯\r\n" + url;
+
+    // Copy the text inside the text field
+    navigator.clipboard.writeText(copyText);
+    btn.querySelector('.copy-hint').classList.add('active')
+    setTimeout(() => {
+        btn.querySelector('.copy-hint').classList.remove('active')
+    }, 1600)
 }
 
 function addConsole(content){
     document.querySelector('#console').innerHTML += content + '<br />'
-}
-
-function encodeJson(data){
-    var formBody = [];
-    for (var property in data) {
-        var encodedKey = encodeURIComponent(property);
-        var encodedValue = encodeURIComponent(data[property]);
-        formBody.push(encodedKey + "=" + encodedValue);
-    }
-    formBody = formBody.join("&");
-    return formBody
-}
-
-function _uuid() {
-    var d = Date.now();
-    if (typeof performance !== 'undefined' && typeof performance.now === 'function'){
-      d += performance.now(); //use high-precision timer if available
-    }
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-      var r = (d + Math.random() * 16) % 16 | 0;
-      d = Math.floor(d / 16);
-        return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
-    });
 }
 
 // document.ready
