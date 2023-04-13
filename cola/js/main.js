@@ -74,7 +74,7 @@ const ready = function(){
             // 傳資料到好盒器 & 開啟LINE BOT
             userJoin(userId)
         } else {
-            liff.login({ redirectUri: liffUrl });
+            liff.login({ redirectUri: siteUrl });
             // userLogin()
         }
     })
