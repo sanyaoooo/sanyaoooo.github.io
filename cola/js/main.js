@@ -3,7 +3,7 @@ const siteUrl = "https://sanyaoooo.github.io/cola";
 const liffId = '1655196878-X4ZDmaQl';
 const liffUrl = 'https://liff.line.me/1655196878-X4ZDmaQl';
 const joinUrl = "https://lin.ee/nTpgglc"; // for event 2023 earth day
-const apiUrl = "https://app.goodtogo.tw/v8/engagement/campaign/2023earthday"
+const apiUrl = "https://app.goodtogo.tw/dev/engagement/campaign/2023earthday"
 
 
 // 傳資料到好盒器 & 開啟LINE BOT
@@ -121,7 +121,7 @@ function initSwiper(){
 }
 
 function shareEvent(btn, url){
-    if(liff.isApiAvailable('shareTargetPicker')){
+    if(liff.isLoggedIn() && liff.isApiAvailable('shareTargetPicker')){
         liff
         .shareTargetPicker(
             [
