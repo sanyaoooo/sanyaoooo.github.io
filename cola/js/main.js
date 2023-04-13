@@ -1,9 +1,10 @@
 let userId = 'none'
-const siteUrl = "https://2023-earthday.goodtogo.tw";
+const siteUrl = "https://sanyaoooo.github.io/cola";
 const liffId = '1655196878-X4ZDmaQl';
 const liffUrl = 'https://liff.line.me/1655196878-X4ZDmaQl';
-const joinUrl = "https://lin.ee/nTpgglc"; // for event 2023 earth day
-const apiUrl = "https://app.goodtogo.tw/v8/engagement/campaign/2023earthday"
+const joinUrl = "https://lin.ee/4EFDSRS"; // 測試帳號的加友連結 for event 2023 earth day
+// const joinUrl = "https://lin.ee/nTpgglc"; // 正式帳號的加入好友連結 for event 2023 earth day
+const apiUrl = "https://app.goodtogo.tw/dev/engagement/campaign/2023earthday"
 
 
 // 傳資料到好盒器 & 開啟LINE BOT
@@ -69,7 +70,10 @@ const ready = function(){
     addConsole('isInClient: ' + liff.isInClient())
 
     document.querySelector('#count_me_a_cup').addEventListener('click', (e) => {
-        ga('send', 'event', '開啟LINE BOT', '點擊', '我要參加');
+        gtag('event', 'click', {
+            'event_category': '開啟LINE BOT',
+            'event_label': '我要參加',
+        });
         if(liff.isLoggedIn()){
             // 傳資料到好盒器 & 開啟LINE BOT
             userJoin(userId)
@@ -136,8 +140,10 @@ function shareEvent(btn, url){
             }
         )
         .then(function (res) {
-            ga('send', 'event', '分享', '點擊', '邀請朋友一起參加 (line)');
-
+            gtag('event', 'click', {
+                'event_category': '分享',
+                'event_label': '邀請朋友一起參加 (line)',
+            });
             if (res) {
                 // succeeded in sending a message through TargetPicker
                 console.log(`[${res.status}] Message sent!`);
@@ -167,7 +173,10 @@ function shareOnBrowser(btn, url){
           url: siteUrl,
         })
         .then(() => {
-            ga('send', 'event', '分享', '點擊', '邀請朋友一起參加 (browser share)');
+            gtag('event', 'click', {
+                'event_category': '分享',
+                'event_label': '邀請朋友一起參加 (browser share)',
+            });
             console.log('Successful share')
         })
         .catch((error) => {
@@ -180,8 +189,10 @@ function shareOnBrowser(btn, url){
 }
 
 function copyShareText(btn, url){
-    ga('send', 'event', '分享', '點擊', '邀請朋友一起參加 (copy text)');
-
+    gtag('event', 'click', {
+        'event_category': '分享',
+        'event_label': '邀請朋友一起參加 (copy text)',
+    });
     // Get the text field
     var copyText = "來麥當勞借循環杯，請你可口可樂喝一杯\r\n" + url;
 
@@ -194,7 +205,7 @@ function copyShareText(btn, url){
 }
 
 function addConsole(content){
-    // document.querySelector('#console').innerHTML += content + '<br />'
+    document.querySelector('#console').innerHTML += content + '<br />'
 }
 
 // document.ready
