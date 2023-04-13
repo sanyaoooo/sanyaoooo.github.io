@@ -1,9 +1,10 @@
 let userId = 'none'
-const siteUrl = "https://2023-earthday.goodtogo.tw";
+const siteUrl = "https://sanyaoooo.github.io/cola";
 const liffId = '1655196878-X4ZDmaQl';
 const liffUrl = 'https://liff.line.me/1655196878-X4ZDmaQl';
-const joinUrl = "https://lin.ee/nTpgglc"; // for event 2023 earth day
-const apiUrl = "https://app.goodtogo.tw/v8/engagement/campaign/2023earthday"
+const joinUrl = "https://lin.ee/4EFDSRS"; // 測試帳號的加友連結 for event 2023 earth day
+// const joinUrl = "https://lin.ee/nTpgglc"; // 正式帳號的加入好友連結 for event 2023 earth day
+const apiUrl = "https://app.goodtogo.tw/dev/engagement/campaign/2023earthday"
 
 
 // 傳資料到好盒器 & 開啟LINE BOT
@@ -186,7 +187,7 @@ function copyShareText(btn, url){
 }
 
 function addConsole(content){
-    // document.querySelector('#console').innerHTML += content + '<br />'
+    document.querySelector('#console').innerHTML += content + '<br />'
 }
 
 // document.ready
